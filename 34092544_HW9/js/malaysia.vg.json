@@ -3,25 +3,28 @@
   "width": 1250,
   "height": 700,
   "projection": {
-    "type": "mercator"},
+    "type": "mercator"
+  },
   "layer": [
     {
       "data": {
-        "url": "js/malaysia_states.json",
+        "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW9/js/malaysia_states.json",
         "format": {"type": "topojson", "feature": "MYSADM0gbOpen"}
       },
       "mark": {"type": "geoshape", "fill": "lightgrey", "stroke": "white"}
     },
     {
       "data": {
-        "url": "js/malaysia_states.json",
+        "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW9/js/malaysia_states.json",
         "format": {"type": "topojson", "feature": "MYSADM1gbOpen"}
       },
       "transform": [
         {
           "lookup": "properties.shapeName",
           "from": {
-            "data": {"url": "data/crops_state_paddy_2022.csv"},
+            "data": {
+              "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW9/data/crops_state_paddy_2022.csv"
+            },
             "key": "state",
             "fields": ["production", "planted_area", "yield"]
           }
@@ -37,14 +40,31 @@
         },
         "tooltip": [
           {"field": "properties.shapeName", "title": "State"},
-          {"field": "production", "type": "quantitative", "title": "Total paddy production (tonnes)", "format": ",.0f"},
-          {"field": "planted_area", "type": "quantitative", "title": "Total planted area (hectares)", "format": ",.1f"},
-          {"field": "yield", "type": "quantitative", "title": "Average yield (tonnes per hectare)", "format": ".2f"}
+          {
+            "field": "production",
+            "type": "quantitative",
+            "title": "Total paddy production (tonnes)",
+            "format": ",.0f"
+          },
+          {
+            "field": "planted_area",
+            "type": "quantitative",
+            "title": "Total planted area (hectares)",
+            "format": ",.1f"
+          },
+          {
+            "field": "yield",
+            "type": "quantitative",
+            "title": "Average yield (tonnes per hectare)",
+            "format": ".2f"
+          }
         ]
       }
     },
     {
-      "data": {"url": "data/Malaysia_Coord_common.csv"},
+      "data": {
+        "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW9/data/Malaysia_Coord_common.csv"
+      },
       "transform": [
         {
           "aggregate": [
@@ -63,7 +83,7 @@
     },
     {
       "data": {
-        "url": "js/malaysia_states.json",
+        "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW9/js/malaysia_states.json",
         "format": {"type": "topojson", "feature": "ne_110m_graticules_1"}
       },
       "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray", "strokeWidth": 0.5}

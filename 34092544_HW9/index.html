@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <title>Malaysia Paddy Production Map</title>
 
-  <!-- Import Vega & Vega-Lite -->
+
   <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
   
-  <!-- CSS file -->
+
   <link rel="stylesheet" type="text/css" href="layout.css" media="all">
 </head>
 <body>
@@ -19,7 +19,7 @@
 <div id="choropleth_map"></div>
 
 <script type="text/javascript">
-  var spec = "js/malaysia.vg.json";
+  var spec = "https://raw.githubusercontent.com/masr0004/FIT-3179/refs/heads/main/34092544_HW9/js/malaysia.vg.json";
   vegaEmbed('#choropleth_map', spec).then(function(result) {
     console.log("Chart rendered successfully");
   }).catch(console.error);
@@ -27,6 +27,4 @@
 
 </body>
 </html>
-
-
 
