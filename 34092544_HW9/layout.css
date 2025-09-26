@@ -1,7 +1,6 @@
 #choropleth_map {
-  margin: 30px auto;   
-  width: 95%;          
-  max-width: 1000px;
+  top: 50px;
+  bottom: 0px; 
+  left: 40px;
+  right: 0px;
 }
-
-
