@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Malaysia Agriculture and Climate Analysis</title>
+
+  <!-- Vega libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" type="text/css" href="layout.css" media="all">
+</head>
+<body>
+  <h1 style="text-align:center;">Malaysia Crop Yield and Climate (2019–2021)</h1>
+
+  <!-- Choropleth Map -->
+  <h2 style="text-align:center; color:green;">Choropleth Map by State</h2>
+  <p style="text-align:center; max-width: 900px; margin: 0 auto; color: #555;">
+    This choropleth map shows the average crop yield (t/ha) for selected crops 
+    across Malaysian states from 2019 to 2021. 
+    Use the dropdown to select a crop and the slider to select a year.
+  </p>
+
+  <div id="choropleth_map" style="margin: 30px auto; width: 95%;"></div>
+
+  <!-- Scatter Plot -->
+  <h2 style="text-align:center; color:blue;">Scatter Plot: Rainfall vs Yield</h2>
+  <p style="text-align:center; max-width: 900px; margin: 0 auto; color: #555;">
+    This scatter plot compares rainfall (mm) with crop yields (t/ha) across Malaysian states. 
+    Use the slider to filter by year. Tooltips show rainfall, temperature, humidity, 
+    and other details for each state and crop.
+  </p>
+
+  <div id="scatter_plot" style="margin: 30px auto; width: 95%;"></div>
+
+  <!-- Embed the charts -->
+  <script type="text/javascript">
+    // Choropleth map spec
+    var mapSpec = "js/malaysia_state_map.json";
+    vegaEmbed('#choropleth_map', mapSpec).then(function(result) {
+      console.log("Map rendered successfully");
+    }).catch(console.error);
+
+    // Scatter plot spec
+    var scatterSpec = "js/Scatterplot.json";
+    vegaEmbed('#scatter_plot', scatterSpec).then(function(result) {
+      console.log("Scatter plot rendered successfully");
+    }).catch(console.error);
+  </script>
+</body>
+</html>
