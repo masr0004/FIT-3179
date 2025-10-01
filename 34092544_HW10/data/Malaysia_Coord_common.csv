@@ -1,0 +1,157 @@
+"States","District","Lat","Lon"
+"Johor","Batu Pahat",1.85,102.97
+"Johor","Johor Bahru",1.5,103.74
+"Johor","Kluang",2.04,103.33
+"Johor","Kota Tinggi",1.75,103.9
+"Johor","Kulai",1.66,103.59
+"Johor","Mersing",2.5,103.94
+"Johor","Muar",2.07,102.58
+"Johor","Muar",2.14,102.76
+"Johor","Pontian",1.49,103.45
+"Johor","Segamat",2.53,102.83
+"Johor","Tangkak",2.27,102.54
+"Kedah","Baling",5.72,100.89
+"Kedah","Bandar Baharu",5.22,100.61
+"Kedah","Kota Setar",6.12,100.37
+"Kedah","Kuala Muda",5.68,100.49
+"Kedah","Kubang Pasu",6.5,100.41
+"Kedah","Kubang Pasu",6.3,100.39
+"Kedah","Kubang Pasu",6.38,100.31
+"Kedah","Kubang Pasu",6.44,100.5
+"Kedah","Kulim",5.39,100.59
+"Kedah","Langkawi",6.34,99.78
+"Kedah","Padang Terap",6.24,100.64
+"Kedah","Pendang",5.98,100.55
+"Kedah","Pokok Sena",6.13,100.57
+"Kedah","Sik",5.91,100.75
+"Kedah","Yan",5.84,100.4
+"Kedah","Kubang Pasu",6.46,100.51
+"Kelantan","Bachok",6.01,102.41
+"Kelantan","Gua Musang",4.87,101.96
+"Kelantan","Jeli",5.68,101.85
+"Kelantan","Kota Bharu",6.11,102.28
+"Kelantan","Kuala Krai",5.53,102.23
+"Kelantan","Lojing",4.64,101.51
+"Kelantan","Machang",5.77,102.23
+"Kelantan","Pasir Mas",6.02,102.13
+"Kelantan","Pasir Puteh",5.84,102.4
+"Kelantan","Tanah Merah",5.82,102.1
+"Kelantan","Tumpat",6.19,102.16
+"Malacca","Alor Gajah",2.39,102.22
+"Malacca","Jasin",2.3,102.42
+"Malacca","Melaka Tengah",2.23,102.26
+"Malacca","Tampin",2.49,102.24
+"Negeri Sembilan","Jelebu",2.94,102.08
+"Negeri Sembilan","Jempol",2.81,102.4
+"Negeri Sembilan","Kuala Pilah",2.74,102.25
+"Negeri Sembilan","Port Dickson",2.57,101.83
+"Negeri Sembilan","Rembau",2.58,102.1
+"Negeri Sembilan","Seremban",2.75,101.77
+"Negeri Sembilan","Seremban",2.84,101.8
+"Negeri Sembilan","Seremban",2.71,101.96
+"Negeri Sembilan","Tampin",2.47,102.24
+"Pahang","Bentong",3.46,101.97
+"Pahang","Bera",3.24,102.47
+"Pahang","Cameron Highlands",4.47,101.41
+"Pahang","Jerantut",3.95,102.37
+"Pahang","Jerantut",4.15,102.42
+"Pahang","Kuantan",3.81,103.28
+"Pahang","Lipis",4.2,102.03
+"Pahang","Maran",3.58,102.78
+"Pahang","Pekan",3.45,103.39
+"Pahang","Raub",3.82,101.85
+"Pahang","Rompin",2.81,103.25
+"Pahang","Rompin",2.96,102.98
+"Pahang","Temerloh",3.45,102.43
+"Penang","Barat Daya Pulau Pinang",5.35,100.22
+"Penang","Seberang Perai Selatan",5.22,100.48
+"Penang","Seberang Perai Tengah",5.37,100.46
+"Penang","Seberang Perai Utara",5.52,100.44
+"Penang","Timur Laut Pulau Pinang",5.42,100.31
+"Perak","Batang Padang",4.16,101.27
+"Perak","Hilir Perak",4.03,101
+"Perak","Hulu Perak",5.42,101.13
+"Perak","Hulu Perak",5.15,101.03
+"Perak","Kampar",4.29,101.15
+"Perak","Kerian",5.11,100.48
+"Perak","Kinta",4.61,101.09
+"Perak","Kuala Kangsar",4.79,100.99
+"Perak","Larut; Matang & Selama",4.81,100.71
+"Perak","Manjung",4.25,100.67
+"Perak","Muallim",3.73,101.5
+"Perak","Perak Tengah",4.36,100.97
+"Perlis","Arau",6.43,100.28
+"Perlis","Kangar",6.46,100.2
+"Perlis","Kuala Perlis",6.4,100.15
+"Perlis","Padang Besar",6.66,100.27
+"Sabah","Beaufort",5.29,115.75
+"Sabah","Beluran",5.78,117.32
+"Sabah","Keningau",5.2,116.24
+"Sabah","Kinabatangan",5.44,117.64
+"Sabah","Kota Belut",6.38,116.48
+"Sabah","Kota Kinabalu",6.04,116.14
+"Sabah","Kota Marudu",6.64,116.97
+"Sabah","Kuala Penyu",5.51,115.55
+"Sabah","Kudat",6.85,116.77
+"Sabah","Kunak",4.71,118.11
+"Sabah","Lahad Datu",5.09,118.37
+"Sabah","Nabawan",5.03,116.44
+"Sabah","Papar",5.72,115.98
+"Sabah","Penampang",5.91,116.1
+"Sabah","Pitas",6.71,117.05
+"Sabah","Putatan",5.89,116.04
+"Sabah","Ranau",5.93,116.73
+"Sarawak","Asajaya",1.52,110.6
+"Sarawak","Bau",1.4,110.1
+"Sarawak","Belaga",3.04,114.01
+"Sarawak","Betong",1.4,111.56
+"Sarawak","Bintulu",3.24,113.39
+"Sarawak","Dalat",2.63,112.03
+"Sarawak","Daro",2.56,111.41
+"Sarawak","Julau",1.95,111.88
+"Sarawak","Kanowit",2.06,112.18
+"Sarawak","Kapit",1.91,113.08
+"Sarawak","Kuching",1.59,110.36
+"Sarawak","Lawas",4.77,115.44
+"Sarawak","Limbang",4.57,115.01
+"Sarawak","Lubok Antu",1.14,111.8
+"Sarawak","Lundu",1.65,109.9
+"Sarawak","Maradong",2.16,111.65
+"Sarawak","Marudi",4.22,114.35
+"Sarawak","Matu",2.7,111.58
+"Sarawak","Miri",4.17,113.95
+"Sarawak","Mukah",2.82,112.17
+"Sarawak","Padawan",1.43,110.33
+"Sarawak","Pakan",1.88,111.67
+"Sarawak","Samarahan",1.45,110.48
+"Sarawak","Saratok",1.75,111.32
+"Sarawak","Sarikei",2.1,111.5
+"Sarawak","Selagau",2.52,112.33
+"Sarawak","Serian",1.17,110.58
+"Sarawak","Sibu",2.3,111.84
+"Sarawak","Simunjan",1.15,110.9
+"Sarawak","Song",1.87,112.64
+"Sarawak","Sri Aman",1.24,111.46
+"Sarawak","Tatau",2.91,112.85
+"Selangor","Gombak",3.3,101.54
+"Selangor","Hulu Bernam",3.68,101.46
+"Selangor","Hulu Langat",3.13,101.83
+"Selangor","Hulu Selangor",3.57,101.66
+"Selangor","Klang",3.05,101.44
+"Selangor","Kuala Langat",2.84,101.49
+"Selangor","Kuala Selangor",3.34,101.27
+"Selangor","Kuala Selangor",3.53,101.12
+"Selangor","Petaling",3.17,101.6
+"Selangor","Petaling",3.21,101.55
+"Selangor","Petaling",3.07,101.53
+"Selangor","Sabak Bernam",3.72,101.02
+"Selangor","Sepang",2.74,101.7
+"Selangor","Sepang",2.77,101.73
+"Terengganu","Besut",5.66,102.59
+"Terengganu","Dungun",4.76,103.37
+"Terengganu","Hulu Terengganu",5.12,102.96
+"Terengganu","Kemaman",4.25,103.35
+"Terengganu","Kuala Nerus",5.39,103.08
+"Terengganu","Kuala Terengganu",5.3,103.09
+"Terengganu","Marang",5.12,103.22
+"Terengganu","Setiu",5.51,102.77
