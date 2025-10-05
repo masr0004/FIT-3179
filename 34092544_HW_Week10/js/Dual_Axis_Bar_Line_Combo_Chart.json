@@ -1,0 +1,88 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 500,
+  "data": { "url": "data/climate_crop.csv", "format": { "type": "csv" } },
+
+  "params": [
+    {
+      "name": "year_selection",
+      "value": "2019",
+      "bind": {
+        "input": "select",
+        "options": ["2019", "2020", "2021"],
+        "labels": ["2019", "2020", "2021"],
+        "name": "Select Year: "
+      }
+    },
+    {
+      "name": "crop_selection",
+      "value": "Paddy",
+      "bind": {
+        "input": "select",
+        "options": ["Paddy", "Coconut", "Fruits"],
+        "labels": ["Paddy", "Coconut", "Fruits"],
+        "name": "Select Crop: "
+      }
+    },
+    {
+      "name": "climate_selection",
+      "value": "Total_Rainfall_mm",
+      "bind": {
+        "input": "select",
+        "options": ["Total_Rainfall_mm", "Max_Temp", "Min_Temp"],
+        "labels": ["Rainfall (mm)", "Max Temp (°C)", "Min Temp (°C)"],
+        "name": "Select Climate Variable: "
+      }
+    }
+  ],
+
+  "transform": [
+    { "calculate": "toString(datum.date)", "as": "date_str" },
+    { "filter": "datum.date_str == year_selection" },
+
+    { "calculate": "lower(datum.crop_type)", "as": "crop_lc" },
+    { "calculate": "lower(crop_selection)", "as": "crop_param_lc" },
+    { "filter": "datum.crop_lc == datum.crop_param_lc" },
+
+    { "calculate": "datum[climate_selection]", "as": "climate_value" }
+  ],
+
+  "layer": [
+    {
+      "mark": { "type": "bar", "tooltip": true, "opacity": 0.8 },
+      "encoding": {
+        "x": { "field": "state", "type": "nominal", "title": "State", "sort": "-y" },
+        "y": { "field": "yield", "type": "quantitative", "title": "Yield (t/ha)" },
+        "color": { "field": "state", "type": "nominal", "title": "State", "scale": { "scheme": "category20" } },
+        "tooltip": [
+          { "field": "state", "title": "State" },
+          { "field": "date_str", "title": "Year" },
+          { "field": "crop_type", "title": "Crop" },
+          { "field": "yield", "title": "Yield (t/ha)", "format": ".2f" },
+          { "field": "Total_Rainfall_mm", "title": "Rainfall (mm)", "format": ",.0f" },
+          { "field": "Max_Temp", "title": "Max Temp (°C)", "format": ".1f" },
+          { "field": "Min_Temp", "title": "Min Temp (°C)", "format": ".1f" }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "line", "stroke": "black", "point": true },
+      "encoding": {
+        "x": { "field": "state", "type": "nominal", "title": null },
+        "y": {
+          "field": "climate_value",
+          "type": "quantitative",
+          "title": "Climate Variable",
+          "axis": { "orient": "right" }
+        },
+        "tooltip": [
+          { "field": "state", "title": "State" },
+          { "field": "climate_value", "title": "Climate Value" }
+        ]
+      }
+    }
+  ],
+
+  "resolve": { "scale": { "y": "independent" } }
+}
