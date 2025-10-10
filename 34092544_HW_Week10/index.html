@@ -10,12 +10,12 @@
   <link rel="stylesheet" type="text/css" href="layout.css" media="all" />
 </head>
 <body>
-  <!-- Page Title -->
+  <!-- Main Page Title -->
   <h1 style="text-align:center; color:black; font-size:32px; margin-bottom:6px;">
     Malaysia Crop Yield Across States Over the Years (2019–2021)
   </h1>
 
-  <!-- MAP: Section Title + Subheading -->
+  <!-- MAP Title and Subheading -->
   <h2 style="text-align:center; color:black; font-size:24px; margin-top:30px;">
     Yield Across States (Map)
   </h2>
@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <!-- CHART: Section Title + Subheading (unchanged) -->
+  <!-- Dual Axis chart  Title and Subheading -->
   <h2 style="text-align:center; color:black; font-size:24px; margin-top:40px;">
     Yield vs Climate Across States Over Years (2019–2021)
   </h2>
@@ -51,6 +51,19 @@
     </div>
   </div>
 
-  <script src="js/vega_lite_vis.js"></script>
+  
+  <script type="text/javascript">
+    // Choropleth Map
+    var mapSpec = "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW_Week10/js/malaysia_state_map.json";
+    vegaEmbed('#choropleth_map', mapSpec).then(function(result) {
+      console.log("Map rendered successfully");
+    }).catch(console.error);
+
+    // Dual-Axis Bar–Line Chart
+    var dualSpec = "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW_Week10/js/Dual_Axis_Bar_Line_Chart.json";
+    vegaEmbed('#dual_plot', dualSpec).then(function(result) {
+      console.log("Dual-axis chart rendered successfully");
+    }).catch(console.error);
+  </script>
 </body>
 </html>
