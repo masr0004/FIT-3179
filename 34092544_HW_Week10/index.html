@@ -4,27 +4,32 @@
   <meta charset="utf-8" />
   <title>Malaysia Crop Yield Map (2019–2021)</title>
 
+  <!-- Vega libraries -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
+
+  <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="layout.css" media="all" />
 </head>
 <body>
   <!-- Main Page Title -->
   <h1 style="text-align:center; color:black; font-size:32px; margin-bottom:6px;">
-    Malaysia Crop Yield Across States Over the Years (2019–2021)
+   Crop Yield and Rainfall Patterns Across Malaysian States (2019–2021)
   </h1>
 
   <!-- MAP Title and Subheading -->
   <h2 style="text-align:center; color:black; font-size:24px; margin-top:30px;">
-    Yield Across States (Map)
+    Average Crop Yield per Hectare by State in Malaysia (2019-2021)
   </h2>
   <h3 style="text-align:center; color:orange; font-size:20px; margin-top:0;">
     Choropleth Map by State
   </h3>
   <p style="text-align:center; max-width: 800px; margin: 0 auto; color: black;">
-    This choropleth map shows the average crop yield (t/ha) for selected crops across Malaysian states from 2019 to 2021.
+   This choropleth map shows the average crop yield (t/ha) for selected crops across Malaysian states from 2019 to 2021. 
+   The map uses a  sequential color scale to illustrate yield variations among states, with hover tooltips providing detailed information for each crop and location.
   </p>
+
   <div class="vis-row" style="margin: 50px auto 20px; width: 100%;">
     <div id="choropleth_map" class="vis"></div>
     <div id="map-controls" class="controls" aria-label="Map Controls">
@@ -32,7 +37,7 @@
     </div>
   </div>
 
-  <!-- Dual Axis chart  Title and Subheading -->
+  <!-- Dual Axis Chart Title and Subheading -->
   <h2 style="text-align:center; color:black; font-size:24px; margin-top:40px;">
     Yield vs Climate Across States Over Years (2019–2021)
   </h2>
@@ -41,9 +46,10 @@
   </div>
 
   <p style="text-align:center; max-width: 800px; margin: 0 auto 10px; color: black;">
-    This combo chart shows how the selected climate variable relates to crop yield (t/ha)
-    across Malaysian states for 2019–2021.
+   This chart illustrates the relationship between rainfall and crop yield (t/ha), with hover tooltips 
+   providing detailed information for each state. It shows how variations in rainfall levels influence agricultural productivity and yield outcomes across Malaysian states.
   </p>
+
   <div class="vis-row" style="margin: 50px auto 20px; width: 100%;">
     <div id="dual_plot" class="vis"></div>
     <div id="dual-controls" class="controls" aria-label="dual-controls">
@@ -65,5 +71,8 @@
       console.log("Dual-axis chart rendered successfully");
     }).catch(console.error);
   </script>
+
+  <!-- Vega Embed Logic for filters allingment -->
+  <script src="https://cdn.jsdelivr.net/gh/masr0004/FIT-3179/34092544_HW_Week10/js/vega_lite_vis.js"></script>
 </body>
 </html>
