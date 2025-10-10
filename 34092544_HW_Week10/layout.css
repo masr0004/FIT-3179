@@ -18,8 +18,8 @@
 #map-controls label { font-weight: 500; font-size: 15px; }
 
 
-/* Dual-Axis Combo Chart*/
-/* Dual chart controls */
+/* Dual-Axis Chart controls*/
+
 #dual-controls .panel-title { font-weight: 700; font-size: 16px; margin-bottom: 10px; }
 #dual-controls .vega-bind { display: flex; flex-direction: column; row-gap: 8px; }
 #dual-controls .vega-bind + .vega-bind { margin-top: 20px; }
