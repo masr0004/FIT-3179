@@ -1,0 +1,30 @@
+/*Choropleth Map*/
+.vis-row {
+  display: flex;
+  gap: 16px;
+  max-width: 1450px;
+  margin: 0 auto;
+}
+
+.controls {
+  width: 100px;
+  position: relative;
+  font-size: 14px;
+  font-weight: 100;
+}
+#map-controls .panel-title { font-weight: 700; font-size: 16px; margin-bottom: 15px; }
+#map-controls .vega-bind { display: flex; flex-direction: column; row-gap: 8px; }
+#map-controls .vega-bind + .vega-bind { margin-top: 14px; }
+#map-controls label { font-weight: 500; font-size: 15px; }
+
+
+/* Dual-Axis Combo Chart*/
+/* Dual chart controls */
+#dual-controls .panel-title { font-weight: 700; font-size: 16px; margin-bottom: 10px; }
+#dual-controls .vega-bind { display: flex; flex-direction: column; row-gap: 8px; }
+#dual-controls .vega-bind + .vega-bind { margin-top: 20px; }
+#dual-controls label { font-weight: 200; font-size: 15px; }
+#dual-controls { width: 75px; margin-left: 5px; }
+
+/* Tooltip: values bold */
+#vg-tooltip-element td:nth-child(2) { font-weight: bold; }

@@ -1,67 +1,159 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 1200,
-  "height": 400,
-  "projection": {"type": "mercator"},
-  "layer": [
+  "height": 500,
+  "projection": { "type": "mercator" },
+  "config": { "view": { "stroke": "transparent" } },
+
+  "params": [
     {
-      "data": {
-        "url": "js/malaysia_states.json",
-        "format": {"type": "topojson", "feature": "MYSADM0gbOpen"}
-      },
-      "mark": {"type": "geoshape", "fill": "lightgrey", "stroke": "white"}
+      "name": "year_selection",
+      "value": "2019",
+      "bind": {
+        "input": "select",
+        "options": ["2019", "2020", "2021"],
+        "labels": ["2019", "2020", "2021"],
+        "name": "Select Year: "
+      }
     },
     {
-      "data": {
-        "url": "js/malaysia_states.json",
-        "format": {"type": "topojson", "feature": "MYSADM1gbOpen"}
-      },
-      "transform": [
-        {
-          "lookup": "properties.shapeName",   
-          "from": {
-            "data": {"url": "data/crops_state.csv"},
-            "key": "state",
-            "fields": ["date", "crop_type", "production", "planted_area", "yield"]
-          }
-        },
-        { "filter": "toNumber(datum.date) == year_selection" },
-        { "filter": {"param": "crop_selection"} }
-      ],
-      "mark": {"type": "geoshape", "stroke": "black", "strokeWidth": 0.5},
-      "encoding": {
-        "color": {
-          "field": "yield",
-          "type": "quantitative",
-          "title": "Yield (t/ha)",
-          "scale": {"scheme": "greens"}
-        },
-        "tooltip": [
-          {"field": "properties.shapeName", "title": "State"},
-          {"field": "crop_type", "title": "Crop"},
-          {"field": "date", "title": "Year"},
-          {"field": "production", "title": "Production (t)", "format": ",.0f"},
-          {"field": "planted_area", "title": "Planted Area (ha)", "format": ",.1f"},
-          {"field": "yield", "title": "Yield (t/ha)", "format": ".3f"}
-        ]
+      "name": "crop_selection",
+      "value": "coconut",
+      "bind": {
+        "input": "select",
+        "options": ["coconut", "paddy", "fruits"],
+        "labels": ["Coconut", "Paddy", "Fruits"],
+        "name": "Select Crop: "
       }
     }
   ],
-  "params": [
+
+  "layer": [
     {
-      "name": "crop_selection",
-      "bind": {
-        "input": "select",
-        "options": ["paddy", "coconut", "fruits", "flowers"],
-        "labels": ["Paddy", "Coconut", "Fruits", "Flowers"],
-        "name": "Select crop: "
+      "data": {
+        "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW_Week10/js/malaysia_states.json",
+        "format": { "type": "topojson", "feature": "ne_110m_graticules_1" }
       },
-      "value": "paddy"
+      "mark": { "type": "geoshape", "fill": null, "stroke": "lightgrey", "strokeWidth": 0.5 }
     },
     {
-      "name": "year_selection",
-      "bind": {"input": "range", "min": 2019, "max": 2021, "step": 1, "name": "Select year:"},
-      "value": 2019
+      "data": {
+        "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW_Week10/js/malaysia_states.json",
+        "format": { "type": "topojson", "feature": "MYSADM0gbOpen" }
+      },
+      "mark": { "type": "geoshape", "fill": "lightgrey", "stroke": "black", "strokeWidth": 1 }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW_Week10/data/crops_state.csv"
+      },
+      "transform": [
+        { "filter": "datum.date == year_selection" },
+        { "filter": "datum.crop_type == crop_selection" },
+        {
+          "lookup": "state",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW_Week10/js/malaysia_states.json",
+              "format": { "type": "topojson", "feature": "MYSADM1gbOpen" }
+            },
+            "key": "properties.shapeName"
+          },
+          "as": "geo"
+        },
+        { "calculate": "toNumber(datum.yield)", "as": "yield_num" },
+        { "calculate": "format(datum.production, ',.0f') + ' tonnes'", "as": "production_fmt" },
+        { "calculate": "format(datum.planted_area, ',.0f') + ' hectares'", "as": "planted_fmt" },
+        { "calculate": "format(datum.yield_num, '.2f') + ' t/ha'", "as": "yield_fmt" }
+      ],
+      "mark": { "type": "geoshape", "stroke": "black", "strokeWidth": 0.8 },
+      "encoding": {
+        "shape": { "field": "geo", "type": "geojson" },
+        "color": {
+          "field": "yield_num",
+          "type": "quantitative",
+          "title": "Yield (t/ha)",
+          "scale": { "scheme": "oranges" },
+          "legend": { "orient": "right", "title": "Yield (t/ha)" }
+        },
+        "tooltip": [
+          { "field": "state", "title": "State" },
+          { "field": "date", "title": "Year" },
+          { "field": "production_fmt", "title": "Total Production (tonnes)" },
+          { "field": "planted_fmt", "title": "Total Planted area (hectares)" },
+          { "field": "yield_fmt", "title": "Average Yield (t/ha)" }
+        ]
+      }
+    },
+
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW_Week10/data/crops_state.csv"
+      },
+      "transform": [
+        { "filter": "datum.crop_type == crop_selection" },
+        { "filter": "toString(datum.date) == toString(year_selection)" },
+        { "calculate": "toNumber(datum.yield)", "as": "yield_num" },
+        {
+          "aggregate": [
+            { "op": "argmax", "field": "yield_num", "as": "row_max" },
+            { "op": "argmin", "field": "yield_num", "as": "row_min" }
+          ]
+        },
+        { "calculate": "'Crop yield for ' + crop_selection + ' in ' + toString(year_selection) + ':'", "as": "line1" },
+        { "calculate": "'Highest Crop Yield belonging to the state: ' + datum.row_max.state + ' (' + format(datum.row_max.yield_num, '.2f') + ' t/ha)'", "as": "line2" },
+        { "calculate": "'Lowest Crop Yield belonging to the state: ' + datum.row_min.state + ' (' + format(datum.row_min.yield_num, '.2f') + ' t/ha)'", "as": "line3" }
+      ],
+      "layer": [
+        {
+          "mark": { "type": "text", "fontSize": 15, "fontWeight": "bold", "align": "left", "dy": 0 },
+          "encoding": {
+            "x": { "value": 320 },
+            "y": { "value": 200 },
+            "text": { "field": "line1" },
+            "color": { "value": "black" }
+          }
+        },
+        {
+          "mark": { "type": "text", "fontSize": 15, "fontWeight": "bold", "align": "left", "dy": 24 },
+          "encoding": {
+            "x": { "value": 320 },
+            "y": { "value": 200 },
+            "text": { "field": "line2" },
+            "color": { "value": "black" }
+          }
+        },
+        {
+          "mark": { "type": "text", "fontSize": 15, "fontWeight": "bold", "align": "left", "dy": 48 },
+          "encoding": {
+            "x": { "value": 320 },
+            "y": { "value": 200 },
+            "text": { "field": "line3" },
+            "color": { "value": "black" }
+          }
+        }
+      ]
+    },
+
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW_Week10/data/Malaysia_Coord_common.csv"
+      },
+      "transform": [
+        {
+          "aggregate": [
+            { "op": "mean", "field": "Lon", "as": "lon" },
+            { "op": "mean", "field": "Lat", "as": "lat" }
+          ],
+          "groupby": ["States"]
+        }
+      ],
+      "mark": { "type": "text", "fontSize": 12, "fontWeight": "bold", "opacity": 1.0 },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude": { "field": "lat", "type": "quantitative" },
+        "text": { "field": "States" }
+      }
     }
   ]
 }

@@ -1,11 +1,29 @@
-// First chart: Choropleth map
-var mapSpec = "js/map.vg.json";   
-vegaEmbed('#mapVis', mapSpec).then(function(result) {
+// Choropleth map 
+var mapSpec = "js/malaysia_state_map.json";
+
+vegaEmbed('#choropleth_map', mapSpec).then(function(result) {
   console.log("Map chart rendered successfully");
+  var panel = document.querySelector('#map-controls');
+  if (panel) {
+    var container = result.view.container(); 
+    var bindings = container && container.querySelector('.vega-bindings');
+    if (bindings && !panel.contains(bindings)) panel.appendChild(bindings);
+  }
 }).catch(console.error);
 
-// Second chart: Scatter plot
-var scatterSpec = "js/scatter.vg.json";   
-vegaEmbed('#scatterVis', scatterSpec).then(function(result) {
-  console.log("Scatter chart rendered successfully");
+//Dual Axis Plot
+var scatterSpec = "js/Dual_Axis_Bar_Line_Chart.json";
+
+vegaEmbed('#dual_plot', scatterSpec).then(function(result) {
+  console.log("Dual plot rendered successfully");
+  var panel = document.querySelector('#dual-controls');
+  if (panel) {
+    var container = result.view.container(); 
+    var bindings = container && container.querySelector('.vega-bindings');
+    if (bindings && !panel.contains(bindings)) panel.appendChild(bindings);
+  }
 }).catch(console.error);
+
+
+
+

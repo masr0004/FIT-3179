@@ -1,0 +1,156 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 500,
+  "data": {
+    "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_HW_Week10/data/climate_crop.csv"
+  },
+
+  "params": [
+    {
+      "name": "year_selection",
+      "value": "2019",
+      "bind": {
+        "input": "select",
+        "options": ["2019", "2020", "2021"],
+        "labels": ["2019", "2020", "2021"],
+        "name": "Select Year: "
+      }
+    },
+    {
+      "name": "crop_selection",
+      "value": "coconut",
+      "bind": {
+        "input": "select",
+        "options": ["coconut", "paddy", "fruits"],
+        "labels": ["Coconut", "Paddy", "Fruits"],
+        "name": "Select Crop: "
+      }
+    }
+  ],
+
+  "transform": [
+    { "calculate": "toString(datum.date)", "as": "date_str" },
+    { "filter": "datum.date_str == year_selection" },
+    { "filter": "datum.crop_type == crop_selection" },
+    { "calculate": "toNumber(datum.Total_Rainfall_mm)", "as": "rainfall" },
+    { "calculate": "toNumber(datum.yield)", "as": "yield_num" },
+    { "calculate": "format(datum.yield, '.2f') + ' t/ha'", "as": "yield_fmt" },
+    { "calculate": "format(datum.Total_Rainfall_mm, ',.0f') + ' mm'", "as": "rainfall_fmt" }
+  ],
+
+  "layer": [
+    {
+      "mark": { "type": "bar", "opacity": 0.9, "tooltip": true },
+      "encoding": {
+        "x": { "field": "state", "type": "nominal", "title": "State", "sort": "-y" },
+        "y": {
+          "field": "rainfall",
+          "type": "quantitative",
+          "title": "Rainfall (mm)",
+          "scale": { "domain": [0, 5000] },
+          "axis": {
+            "orient": "left",
+            "format": ",.0f",
+            "values": [0, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000],
+            "grid": true,
+            "gridColor": "lightgray",
+            "gridOpacity": 1,
+            "gridWidth": 1
+          }
+        },
+        "color": {
+          "field": "state",
+          "type": "nominal",
+          "title": "State",
+          "scale": { "scheme": "category20" },
+          "legend": { "labelFontSize": 12, "symbolSize": 90 }
+        },
+        "tooltip": [
+          { "field": "state", "title": "State" },
+          { "field": "date_str", "title": "Year" },
+          { "field": "rainfall_fmt", "title": "Rainfall (mm)" },
+          { "field": "yield_fmt", "title": "Yield (t/ha)" }
+        ]
+      }
+    },
+
+    {
+      "transform": [
+        { "calculate": "'Each point on the line indicates the crop yield (t/ha)'", "as": "yield_key" }
+      ],
+      "mark": { "type": "line", "stroke": "black", "point": { "filled": true, "size": 60 } },
+      "encoding": {
+        "x": { "field": "state", "type": "nominal", "title": null },
+        "y": {
+          "field": "yield_num",
+          "type": "quantitative",
+          "title": "Yield (t/ha)",
+          "axis": {
+            "orient": "right",
+            "format": ".1f",
+            "values": [0, 2, 4, 6, 8, 10, 12, 14, 16, 18],
+            "grid": false
+          },
+          "scale": { "domain": [0, 18] }
+        },
+        "shape": {
+          "field": "yield_key",
+          "type": "nominal",
+          "scale": { "range": ["circle"] },
+          "legend": {
+            "title": null,
+            "orient": "none",
+            "legendX": 755,
+            "legendY": 210,
+            "labelFontSize": 12,
+            "labelFontWeight": "bold",
+            "symbolSize": 200,
+            "symbolStrokeWidth": 1.5,
+            "labelLimit": 1000
+          }
+        },
+        "tooltip": [
+          { "field": "state", "title": "State" },
+          { "field": "date_str", "title": "Year" },
+          { "field": "yield_fmt", "title": "Yield (t/ha)" }
+        ]
+      }
+    },
+
+    {
+      "transform": [
+        {
+          "aggregate": [
+            { "op": "argmax", "field": "yield_num", "as": "row_max_yield" },
+            { "op": "argmin", "field": "yield_num", "as": "row_min_yield" }
+          ]
+        },
+        {
+          "calculate": "'Max yield — ' + datum.row_max_yield.state + ' · Yield: ' + format(datum.row_max_yield.yield_num, '.2f') + ' t/ha , Rainfall: ' + format(datum.row_max_yield.rainfall, ',.0f') + ' mm'",
+          "as": "line3"
+        },
+        {
+          "calculate": "'Min yield — ' + datum.row_min_yield.state + ' · Yield: ' + format(datum.row_min_yield.yield_num, '.2f') + ' t/ha , Rainfall: ' + format(datum.row_min_yield.rainfall, ',.0f') + ' mm'",
+          "as": "line4"
+        },
+        { "calculate": "datum.line3 + '\\n' + datum.line4", "as": "panel_text" }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 15,
+        "fontWeight": "bold",
+        "align": "left",
+        "lineBreak": "\n"
+      },
+      "encoding": {
+        "x": { "value": 140 },
+        "y": { "value": 20 },
+        "text": { "field": "panel_text" },
+        "color": { "value": "black" }
+      }
+    }
+  ],
+
+  "resolve": { "scale": { "y": "independent" } }
+}

@@ -1,53 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Malaysia Agriculture and Climate Analysis</title>
+  <meta charset="utf-8" />
+  <title>Malaysia Crop Yield Map (2019–2021)</title>
 
-  <!-- Vega libraries -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" type="text/css" href="layout.css" media="all">
+  <link rel="stylesheet" type="text/css" href="layout.css" media="all" />
 </head>
 <body>
-  <h1 style="text-align:center;">Malaysia Crop Yield and Climate (2019–2021)</h1>
+  <!-- Page Title -->
+  <h1 style="text-align:center; color:black; font-size:32px; margin-bottom:6px;">
+    Malaysia Crop Yield Across States Over the Years (2019–2021)
+  </h1>
 
-  <!-- Choropleth Map -->
-  <h2 style="text-align:center; color:green;">Choropleth Map by State</h2>
-  <p style="text-align:center; max-width: 900px; margin: 0 auto; color: #555;">
-    This choropleth map shows the average crop yield (t/ha) for selected crops 
-    across Malaysian states from 2019 to 2021. 
-    Use the dropdown to select a crop and the slider to select a year.
+  <!-- MAP: Section Title + Subheading -->
+  <h2 style="text-align:center; color:black; font-size:24px; margin-top:30px;">
+    Yield Across States (Map)
+  </h2>
+  <h3 style="text-align:center; color:orange; font-size:20px; margin-top:0;">
+    Choropleth Map by State
+  </h3>
+  <p style="text-align:center; max-width: 800px; margin: 0 auto; color: black;">
+    This choropleth map shows the average crop yield (t/ha) for selected crops across Malaysian states from 2019 to 2021.
   </p>
+  <div class="vis-row" style="margin: 50px auto 20px; width: 100%;">
+    <div id="choropleth_map" class="vis"></div>
+    <div id="map-controls" class="controls" aria-label="Map Controls">
+      <div class="panel-title">Filters</div>
+    </div>
+  </div>
 
-  <div id="choropleth_map" style="margin: 30px auto; width: 95%;"></div>
+  <!-- CHART: Section Title + Subheading (unchanged) -->
+  <h2 style="text-align:center; color:black; font-size:24px; margin-top:40px;">
+    Yield vs Climate Across States Over Years (2019–2021)
+  </h2>
+  <div style="text-align:center; color:rebeccapurple; font-weight:700; font-size:20px; margin-bottom:18px;">
+    Dual-Axis Bar–Line Chart
+  </div>
 
-  <!-- Scatter Plot -->
-  <h2 style="text-align:center; color:blue;">Scatter Plot: Rainfall vs Yield</h2>
-  <p style="text-align:center; max-width: 900px; margin: 0 auto; color: #555;">
-    This scatter plot compares rainfall (mm) with crop yields (t/ha) across Malaysian states. 
-    Use the slider to filter by year. Tooltips show rainfall, temperature, humidity, 
-    and other details for each state and crop.
+  <p style="text-align:center; max-width: 800px; margin: 0 auto 10px; color: black;">
+    This combo chart shows how the selected climate variable relates to crop yield (t/ha)
+    across Malaysian states for 2019–2021.
   </p>
+  <div class="vis-row" style="margin: 50px auto 20px; width: 100%;">
+    <div id="dual_plot" class="vis"></div>
+    <div id="dual-controls" class="controls" aria-label="dual-controls">
+      <div class="panel-title">Filters</div>
+    </div>
+  </div>
 
-  <div id="scatter_plot" style="margin: 30px auto; width: 95%;"></div>
-
-  <!-- Embed the charts -->
-  <script type="text/javascript">
-    // Choropleth map spec
-    var mapSpec = "js/malaysia_state_map.json";
-    vegaEmbed('#choropleth_map', mapSpec).then(function(result) {
-      console.log("Map rendered successfully");
-    }).catch(console.error);
-
-    // Scatter plot spec
-    var scatterSpec = "js/Scatterplot.json";
-    vegaEmbed('#scatter_plot', scatterSpec).then(function(result) {
-      console.log("Scatter plot rendered successfully");
-    }).catch(console.error);
-  </script>
+  <script src="js/vega_lite_vis.js"></script>
 </body>
 </html>
