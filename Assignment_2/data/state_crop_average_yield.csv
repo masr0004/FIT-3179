@@ -1,0 +1,104 @@
+state,crop_type,avg_planted_area,avg_production,avg_yield
+Johor,cash crops,3374.567,43645.483,12.981
+Johor,coconut,12696.917,108610.9,8.617
+Johor,herbs,289.983,2544.05,9.634
+Johor,industrial crops,13402.55,113538.967,8.535
+Johor,paddy,2708.167,8842.667,3.268
+Johor,spices,1315.617,15242.65,11.786
+Johor,vegetables,15866.383,217017.783,13.668
+Kedah,cash crops,604.55,4680.65,7.786
+Kedah,coconut,1494.217,11577.3,7.501
+Kedah,fruits,10762.133,70279.55,6.616
+Kedah,herbs,166.017,417.983,2.575
+Kedah,industrial crops,1902.783,14352.433,7.692
+Kedah,paddy,214392.5,901630.167,4.205
+Kedah,spices,518.6,1371.683,2.775
+Kedah,vegetables,1432.183,14927,10.663
+Kelantan,cash crops,1466.583,17325.2,11.789
+Kelantan,coconut,9801.883,74264.317,7.638
+Kelantan,fruits,19585.983,130172.2,6.62
+Kelantan,herbs,140.633,784.367,5.626
+Kelantan,industrial crops,10106.333,74858.65,7.466
+Kelantan,paddy,73771,301727.167,4.087
+Kelantan,spices,563.117,4513.5,8.051
+Kelantan,vegetables,4467.4,128815.117,28.897
+Malacca,cash crops,451.05,3504.483,7.824
+Malacca,coconut,2148.75,14106.417,6.535
+Malacca,fruits,3829.2,23737.367,6.338
+Malacca,herbs,11.883,95.317,9.555
+Malacca,industrial crops,2183.467,14302.9,6.518
+Malacca,paddy,3357.5,9993.5,2.973
+Malacca,spices,106.1,839.417,8.311
+Malacca,vegetables,1019.067,14493.55,14.369
+Negeri Sembilan,cash crops,386.133,4473.5,11.64
+Negeri Sembilan,coconut,1411.233,12934.817,9.178
+Negeri Sembilan,fruits,5682.433,61714.483,10.887
+Negeri Sembilan,herbs,14.95,54.317,4.52
+Negeri Sembilan,industrial crops,1465.333,13606.367,9.302
+Negeri Sembilan,paddy,1775.667,7330,4.06
+Negeri Sembilan,spices,356.383,4352.517,12.261
+Negeri Sembilan,vegetables,1682.583,22236.467,13.252
+Pahang,cash crops,1111.133,8317.717,7.46
+Pahang,coconut,3915.067,28147.517,7.329
+Pahang,fruits,26690.117,220368.667,8.364
+Pahang,herbs,255.5,1235.3,4.509
+Pahang,industrial crops,5760.55,37781.667,6.611
+Pahang,paddy,12618.167,38650,3.054
+Pahang,spices,1550.417,13502.8,8.749
+Pahang,vegetables,17285.383,376480.783,21.843
+Penang,cash crops,151.417,1474.367,9.643
+Penang,coconut,36.45,218.2,6.085
+Penang,fruits,2534.4,21536.7,8.488
+Penang,herbs,0.283,2.1,7.961
+Penang,industrial crops,41.583,258.3,6.214
+Penang,paddy,24887,131542.833,5.284
+Penang,spices,36.767,261.533,7.185
+Penang,vegetables,862.817,10674.6,12.415
+Perak,cash crops,4978.25,85373.933,17.131
+Perak,coconut,7930.85,78029.967,9.88
+Perak,fruits,11183.467,108579.25,9.708
+Perak,herbs,485.217,1165.067,2.44
+Perak,industrial crops,7989.033,78472.033,9.86
+Perak,paddy,78351.167,265001.167,3.38
+Perak,spices,391.85,3812.533,9.778
+Perak,vegetables,6792.283,115063.05,16.931
+Perlis,cash_crops,29.6,197.917,8.148
+Perlis,coconut,433.05,3331.9,7.644
+Perlis,fruits,2731.333,14282.767,4.884
+Perlis,herbs,3.783,18.95,7.414
+Perlis,industrial crops,445.4,3381.983,7.56
+Perlis,paddy,54550.167,229143.5,4.209
+Perlis,spices,3.867,12.117,4.907
+Perlis,vegetables,297.8,2002.883,8.496
+Sabah,cash crops,1475.317,11740.083,8.118
+Sabah,coconut,17483.3,55545.783,3.173
+Sabah,fruits,19084.283,116342.683,6.117
+Sabah,herbs,1.633,0.283,0.354
+Sabah,industrial crops,19723.233,60102.183,3.046
+Sabah,paddy,40774.333,113931.667,2.799
+Sabah,spices,432.183,2537.467,5.883
+Sabah,vegetables,4353.133,44003.4,10.107
+Sarawak,cash_crops,3499.1,21899.433,6.495
+Sarawak,coconut,12391.05,35819.383,2.898
+Sarawak,fruits,36362.85,153376.45,4.22
+Sarawak,herbs,658.8,2908.617,4.418
+Sarawak,industrial crops,63144.833,176733.783,2.885
+Sarawak,paddy,102891.867,198486.317,1.916
+Sarawak,spices,493.467,2962.033,5.99
+Sarawak,vegetables,5428.533,54819.117,10.086
+Selangor,cash crops,1038.083,14837.833,14.29
+Selangor,coconut,10439.6,103718.233,10.29
+Selangor,fruits,2578.017,32042.7,13.984
+Selangor,herbs,87.117,725.683,8.353
+Selangor,industrial crops,10685.8,106672.867,10.327
+Selangor,paddy,36267.667,163791.5,4.514
+Selangor,spices,340.733,4143.133,12.124
+Selangor,vegetables,2476.183,34392,13.878
+Terengganu,cash_crops,492.783,4577.817,9.267
+Terengganu,coconut,3785.333,17952.267,5.297
+Terengganu,fruits,7279.45,44798.267,6.182
+Terengganu,herbs,210.15,300.983,1.876
+Terengganu,industrial crops,4503.583,18122.3,4.27
+Terengganu,paddy,18386.667,70315,3.834
+Terengganu,spices,170.767,992.4,6.085
+Terengganu,vegetables,1143.867,15365.183,13.399

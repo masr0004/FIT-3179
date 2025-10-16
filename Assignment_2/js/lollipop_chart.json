@@ -1,0 +1,99 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Agriculture Imports vs Exports — Malaysia (2010–2021)",
+  "width": 800,
+  "height": 360,
+
+  "data": { "url": "data/import_export.csv", "format": { "type": "csv" } },
+
+  "params": [
+    {
+      "name": "series",
+      "value": "Both",
+      "bind": {
+        "input": "select",
+        "options": ["Both", "Import", "Export"],
+        "name": "Show: "
+      }
+    },
+    {
+      "name": "yearGroup",
+      "value": "Even Years",
+      "bind": {
+        "input": "select",
+        "options": ["Even Years", "Odd Years"],
+        "name": "Year Group: "
+      }
+    }
+  ],
+
+  "transform": [
+    { "calculate": "toNumber(datum.Year)", "as": "YearNum" },
+    { "filter": "isValid(datum.YearNum) && datum.YearNum >= 2010 && datum.YearNum <= 2021" },
+
+    { "calculate": "lower(datum['Indicator Name'] + '')", "as": "label" },
+    {
+      "calculate": "test(/import/, datum.label) ? 'Import' : (test(/export/, datum.label) ? 'Export' : 'Other')",
+      "as": "Type"
+    },
+    { "calculate": "isValid(datum['Value(%)']) ? toNumber(datum['Value(%)']) : toNumber(datum.Value)", "as": "Val" },
+    { "filter": "isValid(datum.Val)" },
+
+    { "filter": "series == 'Both' || datum.Type == series" },
+
+    {
+      "filter": "yearGroup == 'Even Years' ? (datum.YearNum == 2010 || datum.YearNum == 2012 || datum.YearNum == 2014 || datum.YearNum == 2016 || datum.YearNum == 2018 || datum.YearNum == 2020) : (datum.YearNum == 2011 || datum.YearNum == 2013 || datum.YearNum == 2015 || datum.YearNum == 2017 || datum.YearNum == 2019 || datum.YearNum == 2021)"
+    },
+
+    { "calculate": "0", "as": "Zero" },
+    { "calculate": "series == 'Both' ? (datum.Type == 'Export' ? -12 : 12) : 0", "as": "xoff" }
+  ],
+
+  "encoding": {
+    "x": { "field": "YearNum", "type": "ordinal", "title": "Year", "sort": "ascending" },
+    "color": {
+      "field": "Type",
+      "type": "nominal",
+      "title": null,
+      "scale": { "domain": ["Export", "Import"], "range": ["#4e79a7", "#e15759"] }
+    },
+    "tooltip": [
+      { "field": "YearNum", "title": "Year" },
+      { "field": "Type" },
+      { "field": "Val", "title": "Value (%)", "format": ".2f" }
+    ]
+  },
+
+  "layer": [
+    {
+      "mark": { "type": "rule", "strokeWidth": 3, "opacity": 0.35 },
+      "encoding": {
+        "xOffset": { "field": "xoff" },
+        "y": { "field": "Zero", "type": "quantitative", "axis": { "title": "Value (%)" }, "scale": { "domainMin": 0 } },
+        "y2": { "field": "Val" }
+      }
+    },
+    {
+      "mark": { "type": "circle", "filled": true, "size": 1500, "stroke": null },
+      "encoding": {
+        "xOffset": { "field": "xoff" },
+        "y": { "field": "Val", "type": "quantitative" }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "dy": -2,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "fill": "black"
+      },
+      "encoding": {
+        "xOffset": { "field": "xoff" },
+        "y": { "field": "Val", "type": "quantitative" },
+        "text": { "field": "Val", "type": "quantitative", "format": ".2f" }
+      }
+    }
+  ]
+}

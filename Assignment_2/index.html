@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Climate Trends & Agriculture (2010–2021)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Layout CSS -->
+  <link rel="stylesheet" href="layout.css" />
+
+  <!-- Vega stack -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+
+<body>
+  <div class="shell">
+
+    <!-- ======= HERO (unchanged) ======= -->
+    <header class="hero">
+      <p class="hero__kicker">FIT3179 · Data Visualisation 2</p>
+      <h1 class="hero__title">Climate Trends and Agriculture Sector in Malaysia</h1>
+      <p class="hero__sub">
+        Explore rainfall, temperature and fertilizer consumption to understand links with agricultural performance.
+      </p>
+      <div class="hero__meta">
+        <span class="tag">Coverage: 2010–2022</span>
+        <span class="tag">Sources: DOSM, DataGOV.my,Kaggle</span>
+        <span class="tag">Author: Marzana Asraf</span>
+      </div>
+    </header>
+
+    <!-- ======= MAP (full width) ======= -->
+    <section class="block" id="block-map">
+      <div class="block__head">
+        <h2 class="block__title">Rainy Days Across Malaysian States</h2>
+        <p class="block__desc">Total rainy days by state; using the year slider to explore changes.</p>
+      </div>
+      <div class="card card--map">
+        <div id="vis-map" class="chart"></div>
+      </div>
+    </section>
+
+    <!-- ======= HEATMAP (full width) ======= -->
+    <section class="block" id="block-heatmap">
+      <div class="block__head">
+        <h2 class="block__title">Trends in Climate Variables (2010–2021)</h2>
+        <p class="block__desc">Annual variation in temperature, rainfall and humidity across states.</p>
+      </div>
+      <div class="card">
+        <div id="vis-heatmap" class="chart"></div>
+      </div>
+    </section>
+
+    <!-- ======= FERTILIZER vs GDP (left) + CROPS donut (right) + INSIGHTS BELOW ======= -->
+    <section class="block" id="block-fertility-crops">
+      <div class="block__head">
+        <h2 class="block__title">Fertilizer Use vs Agricultural GDP & Crop Yeild Across States</h2>
+        <p class="block__desc"></p>
+      </div>
+
+      <div class="row-2">
+        <div class="card">
+          <h3 class="card__title">Fertilizer Use vs Agricultural GDP</h3>
+          <div id="vis-waffle" class="chart"></div>
+        </div>
+
+        <div class="card">
+          <h3 class="card__title">Crops by Average Yield per State</h3>
+          <div id="vis-smallmultiples" class="chart"></div>
+        </div>
+      </div>
+
+      <!-- insights below the pair -->
+      <aside class="note-bar">
+        <h4>Insights</h4>
+        <p>
+
+        </p>
+      </aside>
+    </section>
+
+    <!-- ======= LINE + LINE2 + SIDE NOTE (right) ======= -->
+    <section class="block" id="block-lines">
+      <div class="block__head">
+        <h2 class="block__title">Crop and Food Production vs Agriculture GDP</h2>
+        <p class="block__desc"></p>
+      </div>
+
+      <div class="grid-lines-with-note">
+        <div class="card area-a">
+          <h3 class="card__title">Crop Production vs Agriculture GDP</h3>
+          <div id="vis-line" class="chart"></div>
+        </div>
+
+        <div class="card area-b">
+          <h3 class="card__title">Food Production vs Agriculture GDP</h3>
+          <div id="vis-line2" class="chart"></div>
+        </div>
+
+        <aside class="note-box area-note">
+          <h4>Commentary</h4>
+          <p>
+
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ======= FOOD INFLATION (full width, before trade/employment) ======= -->
+    <section class="block" id="block-inflation">
+      <div class="block__head">
+        <h2 class="block__title">Food Inflation Across the Years</h2>
+        <p class="block__desc">CPI food trends over time.</p>
+      </div>
+      <div class="card">
+        <div id="vis-area" class="chart"></div>
+      </div>
+    </section>
+
+    <!-- ======= IMPORTS/EXPORTS + EMPLOYMENT stacked with side note ======= -->
+    <section class="block" id="block-trade-employment">
+      <div class="block__head">
+        <h2 class="block__title">Trade & Employment</h2>
+        <p class="block__desc">.</p>
+      </div>
+
+      <div class="grid-stack-with-note">
+        <div class="card s-area-top">
+          <h3 class="card__title">Imports vs Exports</h3>
+          <div id="vis-lollipop" class="chart"></div>
+        </div>
+
+        <div class="card s-area-bottom">
+          <h3 class="card__title">Employment in Agriculture by Gender</h3>
+          <div id="vis-grouped" class="chart"></div>
+        </div>
+
+        <aside class="note-box s-area-note">
+          <h4>Notes</h4>
+          <p>
+
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="footer">© Marzana Asraf</footer>
+  </div>
+
+  <script>
+    // Helper
+    function embed(sel, specPath) {
+      vegaEmbed(sel, specPath, { actions: false })
+        .catch(err => {
+          const el = document.querySelector(sel);
+          el.style.whiteSpace = 'pre-wrap';
+          el.style.color = 'red';
+          el.textContent = 'Embed failed:\n' + (err?.message || String(err));
+        });
+    }
+
+    // Embeds (IDs unchanged)
+    embed('#vis-map',       'js/map.json');
+    embed('#vis-heatmap',   'js/heatmap.json');
+    embed('#vis-waffle',    'js/waffle_chart.json');
+    embed('#vis-smallmultiples', 'js/small_multiples_graph.json');
+    embed('#vis-line',      'js/line_chart.json');
+    embed('#vis-line2',     'js/line_chart_2.json');
+    embed('#vis-area',      'js/area_chart.json');
+    embed('#vis-lollipop',  'js/lollipop_chart.json');
+    embed('#vis-grouped',   'js/grouped_bar_chart.json');
+  </script>
+</body>
+</html>

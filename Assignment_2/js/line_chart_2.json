@@ -1,0 +1,54 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Food Production vs Agriculture GDP (2010–2021)",
+  "title": "Food Production vs Agriculture GDP% (2010–2021)",
+  "data": { "url": "data/GDP.csv", "format": { "type": "csv" } },
+  "width": 420,
+  "height": 300,
+  "layer": [
+    {
+      "transform": [
+        { "calculate": "toNumber(datum.Year)", "as": "YearNum" },
+        { "calculate": "trim(lower(datum['Indicator Name']))", "as": "indicator_clean" },
+        {
+          "filter": "datum.YearNum >= 2010 && datum.YearNum <= 2021 && datum.indicator_clean == 'food production index'"
+        },
+        { "calculate": "toNumber(datum.Value)", "as": "Val" }
+      ],
+      "mark": { "type": "bar", "color": "#59a14f", "opacity": 0.8 },
+      "encoding": {
+        "x": { "field": "YearNum", "type": "ordinal", "title": "Year" },
+        "y": { "field": "Val", "type": "quantitative", "title": "Food Production Index" },
+        "tooltip": [
+          { "field": "YearNum", "title": "Year" },
+          { "field": "Val", "title": "Food Index", "format": ".2f" }
+        ]
+      }
+    },
+    {
+      "transform": [
+        { "calculate": "toNumber(datum.Year)", "as": "YearNum" },
+        { "calculate": "trim(lower(datum['Indicator Name']))", "as": "indicator_clean" },
+        {
+          "filter": "datum.YearNum >= 2010 && datum.YearNum <= 2021 && datum.indicator_clean == 'agriculture gdp%'"
+        },
+        { "calculate": "toNumber(datum.Value)", "as": "Val" }
+      ],
+      "mark": { "type": "line", "point": { "filled": true, "size": 60 }, "color": "#4e79a7" },
+      "encoding": {
+        "x": { "field": "YearNum", "type": "ordinal", "title": "Year" },
+        "y": {
+          "field": "Val",
+          "type": "quantitative",
+          "title": "Agriculture (% of GDP)",
+          "axis": { "orient": "right" }
+        },
+        "tooltip": [
+          { "field": "YearNum", "title": "Year" },
+          { "field": "Val", "title": "Agri % GDP", "format": ".2f" }
+        ]
+      }
+    }
+  ],
+  "resolve": { "scale": { "y": "independent" } }
+}

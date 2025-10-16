@@ -1,0 +1,77 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Employment in Agriculture by Gender — Malaysia (2010–2021)",
+  "width": 800,
+  "height": 400,
+
+  "data": {
+    "url": "data/Employment.csv",
+    "format": {"type": "csv"}
+  },
+
+  "params": [
+    {
+      "name": "SexSelect",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "name": "Gender: ",
+        "options": ["All", "male", "female", "total"]
+      }
+    }
+  ],
+
+  "transform": [
+    {
+      "filter": "datum.Indicator == 'Employment in agriculture' || datum.Indicator == 'Employment in agriculture (% of total employment)'"
+    },
+    { "calculate": "toNumber(datum.Value)", "as": "ValueNum" },
+    { "calculate": "toNumber(datum.Year)", "as": "YearNum" },
+    { "filter": "datum.YearNum >= 2010 && datum.YearNum <= 2021" },
+    {
+      "filter": "(SexSelect == 'All' && (datum.Sex == 'male' || datum.Sex == 'female')) || (SexSelect != 'All' && datum.Sex == SexSelect)"
+    }
+  ],
+
+  "mark": { "type": "bar", "width": {"band": 0.8} },
+
+  "encoding": {
+    "x": {
+      "field": "YearNum",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": {
+        "labelAngle": 0,
+        "values": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021],
+        "labelFontSize": 10,
+        "tickSize": 4
+      }
+    },
+    "y": {
+      "field": "ValueNum",
+      "type": "quantitative",
+      "title": "Employment in Agriculture (%)",
+      "scale": {"domain": [0, 16]}
+    },
+    "color": {
+      "field": "Sex",
+      "type": "nominal",
+      "title": "Gender",
+      "scale": {
+        "domain": ["male", "female", "total"],
+        "range": ["#4E79A7", "#E15759", "#76B7B2"]
+      }
+    },
+    "xOffset": {"field": "Sex"},
+    "tooltip": [
+      {"field": "YearNum", "title": "Year"},
+      {"field": "Sex", "title": "Gender"},
+      {"field": "ValueNum", "title": "Employment (%)", "format": ".2f"}
+    ]
+  },
+
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"grid": true, "labelFontSize": 10, "titleFontSize": 11}
+  }
+}
