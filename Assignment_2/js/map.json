@@ -22,7 +22,7 @@
   "layer": [
     {
       "data": {
-        "url": "js/malaysia_states.json",
+        "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/Assignment_2/js/malaysia_states.json",
         "format": { "type": "topojson", "feature": "MYSADM0gbOpen" }
       },
       "mark": {
@@ -34,7 +34,7 @@
     },
     {
       "data": {
-        "url": "js/malaysia_states.json",
+        "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/Assignment_2/js/malaysia_states.json",
         "format": { "type": "topojson", "feature": "MYSADM1gbOpen" }
       },
       "mark": {
@@ -45,14 +45,16 @@
       }
     },
     {
-      "data": { "url": "data/Mean_temperature_rainfall.csv" },
+      "data": {
+        "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/Assignment_2/data/Mean_temperature_rainfall.csv"
+      },
       "transform": [
         { "filter": "toNumber(datum.year) == year_selection" },
         {
           "lookup": "state",
           "from": {
             "data": {
-              "url": "js/malaysia_states.json",
+              "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/Assignment_2/js/malaysia_states.json",
               "format": { "type": "topojson", "feature": "MYSADM1gbOpen" }
             },
             "key": "properties.shapeName"
@@ -81,7 +83,7 @@
     },
     {
       "data": {
-        "url": "data/Malaysia_Coord_common.csv"
+        "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/Assignment_2/data/Malaysia_Coord_common.csv"
       },
       "transform": [
         {

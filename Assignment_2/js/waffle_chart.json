@@ -5,8 +5,7 @@
   "height": 420,
 
   "data": {
-    "url": "data/Fertilizer_Consumption.csv",
-    "format": {"type": "csv"}
+    "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/Assignment_2/data/Fertilizer_Consumption.csv"
   },
 
   "params": [

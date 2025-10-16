@@ -9,7 +9,9 @@
   },
   "width": 650,
   "height": 400,
-  "data": { "url": "data/Mean_temperature_rainfall.csv", "format": { "type": "csv" } },
+  "data": {
+    "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/Assignment_2/data/Mean_temperature_rainfall.csv"
+  },
 
   "params": [
     {
