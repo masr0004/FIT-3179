@@ -1,12 +1,13 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": { "text": "Average Crop Yield Composition by State", "fontSize": 18 },
-  "width": 350,
-  "height": 480,
+  "width": 500,
+  "height": 200,
   "background": "#ffffff",
+
   "config": {
     "view": { "stroke": null },
-    "axis": { "grid": false, "domain": false, "ticks": false, "labels": false },
+    "axis": { "grid": false, "domain": false, "ticks": false, "labels": true },
     "legend": { "titleFontSize": 12, "labelFontSize": 11 }
   },
 
@@ -39,15 +40,20 @@
 
   "layer": [
     {
-      "mark": { "type": "arc", "innerRadius": 110, "stroke": "#ffffff", "strokeWidth": 2 },
+      "mark": { "type": "bar", "cornerRadiusEnd": 2 },
       "encoding": {
-        "theta": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "title": null
+        },
+        "x": {
           "aggregate": "sum",
           "field": "yield_num",
           "type": "quantitative",
-          "stack": true
+          "title": "Average Yield (t/ha)",
+          "stack": "zero"
         },
-        "order": { "field": "yield_num", "type": "quantitative" },
         "color": {
           "field": "crop_clean",
           "type": "nominal",
@@ -63,38 +69,12 @@
             ]
           }
         },
+        "order": { "field": "yield_num", "type": "quantitative" },
         "tooltip": [
           { "field": "state", "title": "State" },
           { "field": "crop_clean", "title": "Crop" },
           { "aggregate": "sum", "field": "yield_num", "title": "Average Yield (t/ha)", "format": ".2f" }
         ]
-      }
-    },
-    {
-      "mark": {
-        "type": "text",
-        "radius": 140,
-        "radiusOffset": 1,
-        "fontSize": 14,
-        "fontWeight": "bold",
-        "fill": "#111"
-      },
-      "encoding": {
-        "theta": {
-          "aggregate": "sum",
-          "field": "yield_num",
-          "type": "quantitative",
-          "stack": true
-        },
-        "order": { "field": "yield_num", "type": "quantitative" },
-        "detail": { "field": "crop_clean" },
-        "text": {
-          "aggregate": "sum",
-          "field": "yield_num",
-          "type": "quantitative",
-          "format": ".2f"
-        },
-        "color": { "field": "crop_clean", "type": "nominal" }
       }
     }
   ]
