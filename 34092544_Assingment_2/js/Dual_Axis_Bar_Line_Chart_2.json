@@ -1,0 +1,207 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Food Production vs Agriculture GDP (2010–2021)",
+  "title": "Food Production vs Agriculture GDP% (2010–2021)",
+  "data": { "url": "data/GDP.csv", "format": { "type": "csv" } },
+  "width": "container",
+  "height": 350,
+  "layer": [
+    {
+      "transform": [
+        { "calculate": "toNumber(datum.Year)", "as": "YearNum" },
+        {
+          "calculate": "trim(lower(datum['Indicator Name']))",
+          "as": "indicator_clean"
+        },
+        {
+          "filter": "datum.YearNum >= 2010 && datum.YearNum <= 2021 && datum.indicator_clean == 'food production index'"
+        },
+        { "calculate": "toNumber(datum.Value)", "as": "Val" },
+        {
+          "window": [{ "op": "rank", "as": "rank" }],
+          "sort": [{ "field": "Val", "order": "descending" }]
+        },
+        {
+          "calculate": "datum.rank <= 2 ? 'Top 2' : (datum.rank >= 11 ? 'Bottom 2' : 'Other')",
+          "as": "Category"
+        }
+      ],
+      "mark": { "type": "bar", "opacity": 0.8 },
+      "encoding": {
+        "x": { "field": "YearNum", "type": "ordinal", "title": "Year" },
+        "y": {
+          "field": "Val",
+          "type": "quantitative",
+          "title": "Food Production Index",
+          "scale": { "domain": [0, 130], "nice": false },
+          "axis": { "values": [20, 40, 60, 80, 100, 120, 130] }
+        },
+        "color": {
+          "field": "Category",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Top 2", "Bottom 2", "Other"],
+            "range": ["#2d7a2d", "#7fbc7f", "#d3d3d3"]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          { "field": "YearNum", "title": "Year:" },
+          { "field": "Val", "title": "Food Index:", "format": ".2f" }
+        ]
+      }
+    },
+
+    {
+      "transform": [
+        { "calculate": "toNumber(datum.Year)", "as": "YearNum" },
+        {
+          "calculate": "trim(lower(datum['Indicator Name']))",
+          "as": "indicator_clean"
+        },
+        {
+          "filter": "datum.YearNum >= 2010 && datum.YearNum <= 2021 && datum.indicator_clean == 'agriculture gdp%'"
+        },
+        { "calculate": "toNumber(datum.Value)", "as": "Val" }
+      ],
+      "mark": {
+        "type": "line",
+        "point": { "filled": true, "size": 60 },
+        "color": "#4e79a7"
+      },
+      "encoding": {
+        "x": { "field": "YearNum", "type": "ordinal", "title": "Year" },
+        "y": {
+          "field": "Val",
+          "type": "quantitative",
+          "title": "Agriculture (% of GDP)",
+          "axis": { "orient": "right" }
+        },
+        "tooltip": [
+          { "field": "YearNum", "title": "Year" },
+          { "field": "Val", "title": "Agri % GDP", "format": ".2f" }
+        ]
+      }
+    },
+    {
+      "transform": [
+        { "calculate": "toNumber(datum.Year)", "as": "YearNum" },
+        {
+          "calculate": "trim(lower(datum['Indicator Name']))",
+          "as": "indicator_clean"
+        },
+        {
+          "filter": "datum.YearNum >= 2010 && datum.YearNum <= 2021 && datum.indicator_clean == 'agriculture gdp%'"
+        },
+        { "calculate": "toNumber(datum.Value)", "as": "Val" }
+      ],
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 900,
+        "opacity": 0.0001
+      },
+      "encoding": {
+        "x": { "field": "YearNum", "type": "ordinal", "title": "Year" },
+        "y": { "field": "Val", "type": "quantitative", "axis": null },
+        "tooltip": [
+          { "field": "YearNum", "title": "Year" },
+          { "field": "Val", "title": "Agri % GDP", "format": ".2f" }
+        ]
+      }
+    },
+
+    {
+      "transform": [
+        { "calculate": "toNumber(datum.Year)", "as": "YearNum" },
+        {
+          "calculate": "trim(lower(datum['Indicator Name']))",
+          "as": "indicator_clean"
+        },
+        {
+          "filter": "datum.YearNum >= 2010 && datum.YearNum <= 2021 && (datum.indicator_clean == 'agriculture gdp%' || datum.indicator_clean == 'food production index')"
+        },
+        { "calculate": "toNumber(datum.Value)", "as": "Val" },
+        { "pivot": "indicator_clean", "value": "Val", "groupby": ["YearNum"] },
+        { "calculate": "toNumber(datum['agriculture gdp%'])", "as": "GDP" },
+        {
+          "calculate": "toNumber(datum['food production index'])",
+          "as": "IndexVal"
+        },
+        {
+          "window": [{ "op": "rank", "as": "r" }],
+          "sort": [{ "field": "GDP", "order": "descending" }]
+        },
+        { "filter": "datum.r == 1" },
+        {
+          "calculate": "'Index at GDP peak: ' + format(datum.IndexVal, '.2f')",
+          "as": "Label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dx": 20,
+        "dy": -8,
+        "fontSize": 12,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": { "field": "YearNum", "type": "ordinal" },
+        "y": {
+          "field": "GDP",
+          "type": "quantitative",
+          "scale": { "domain": [0, 12] },
+          "axis": null
+        },
+        "text": { "field": "Label" }
+      }
+    },
+
+    {
+      "transform": [
+        { "calculate": "toNumber(datum.Year)", "as": "YearNum" },
+        {
+          "calculate": "trim(lower(datum['Indicator Name']))",
+          "as": "indicator_clean"
+        },
+        {
+          "filter": "datum.YearNum >= 2010 && datum.YearNum <= 2021 && (datum.indicator_clean == 'agriculture gdp%' || datum.indicator_clean == 'food production index')"
+        },
+        { "calculate": "toNumber(datum.Value)", "as": "Val" },
+        { "pivot": "indicator_clean", "value": "Val", "groupby": ["YearNum"] },
+        { "calculate": "toNumber(datum['agriculture gdp%'])", "as": "GDP" },
+        {
+          "calculate": "toNumber(datum['food production index'])",
+          "as": "IndexVal"
+        },
+        {
+          "window": [{ "op": "rank", "as": "r" }],
+          "sort": [{ "field": "IndexVal", "order": "descending" }]
+        },
+        { "filter": "datum.r == 1" },
+        {
+          "calculate": "'GDP at Index peak: ' + format(datum.GDP, '.2f') + '%'",
+          "as": "Label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dx": 30,
+        "dy": -8,
+        "fontSize": 12,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": { "field": "YearNum", "type": "ordinal" },
+        "y": {
+          "field": "IndexVal",
+          "type": "quantitative",
+          "scale": { "domain": [0, 130] },
+          "axis": null
+        },
+        "text": { "field": "Label" }
+      }
+    }
+  ],
+  "resolve": { "scale": { "y": "independent" } }
+}
