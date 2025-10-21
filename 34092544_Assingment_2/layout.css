@@ -676,3 +676,19 @@ h4.block__title::before {
 #vg-tooltip-element td:nth-child(2) {
   font-weight: bold;
 }
+
+:root{
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", Times, serif;
+}
+
+
+body,
+h1, h2, h3, h4,
+.block__title, .card__title, .note-title, .insight-title {
+  font-family: var(--font-sans);
+}
+
+header.hero h1.hero__title {
+  font-family: var(--font-serif) !important;
+}
