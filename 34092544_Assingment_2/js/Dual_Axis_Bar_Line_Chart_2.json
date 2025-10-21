@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Food Production vs Agriculture GDP (2010–2021)",
   "title": "Food Production vs Agriculture GDP% (2010–2021)",
-  "data": { "url": "data/GDP.csv", "format": { "type": "csv" } },
+  "data": { "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_Assingment_2/data/GDP.csv" },
   "width": "container",
   "height": 350,
   "layer": [

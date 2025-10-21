@@ -11,7 +11,7 @@
     "legend": { "titleFontSize": 12, "labelFontSize": 11 }
   },
 
-  "data": { "url": "data/state_crop_average_yield.csv", "format": { "type": "csv" } },
+  "data": { "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_Assingment_2/data/state_crop_average_yield.csv" },
 
   "params": [
     {

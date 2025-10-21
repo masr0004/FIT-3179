@@ -5,8 +5,8 @@
   "height": 400,
 
   "data": {
-    "url": "data/Employment.csv",
-    "format": {"type": "csv"}
+    "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/refs/heads/main/34092544_Assingment_2/data/Employment.csv"
+  
   },
 
   "params": [

@@ -4,7 +4,7 @@
   "width": 700,
   "height": 420,
 
-  "data": { "url": "data/Fertilizer_Consumption.csv", "format": {"type": "csv"} },
+  "data": { "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_Assingment_2/data/Fertilizer_Consumption.csv" },
 
   "params": [
     {

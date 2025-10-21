@@ -3,7 +3,7 @@
   "title": "Agriculture Imports vs Exports — Malaysia (2010–2021)",
   "width": "container",
   "height": 360,
-  "data": { "url": "data/import_export.csv", "format": { "type": "csv" } },
+  "data": { "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_Assingment_2/data/import_export.csv" },
   "params": [
     {
       "name": "yearGroup",

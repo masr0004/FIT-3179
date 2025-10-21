@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Food Price Inflation — Monthly Trends by Year (2010–2021, Malaysia)",
   "padding": { "top": 16, "right": 8, "bottom": 28, "left": 6 },
-  "data": { "url": "data/consumer-price-indices.csv", "format": { "type": "csv" } },
+  "data": { "url": "https://raw.githubusercontent.com/masr0004/FIT-3179/main/34092544_Assingment_2/data/consumer-price-indices.csv" },
   "config": {
     "view": { "stroke": null },
     "axis": { "grid": true, "labelFontSize": 10, "titleFontSize": 10 }
