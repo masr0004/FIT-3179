@@ -1,0 +1,83 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Climate Variables Across Malaysian States (2010–2021)",
+    "fontSize": 18,
+    "font": "Arial",
+    "fontWeight": "bold",
+    "anchor": "middle"
+  },
+  "width": 650,
+  "height": 400,
+  "data": { "url": "data/Mean_temperature_rainfall.csv", "format": { "type": "csv" } },
+
+  "params": [
+    {
+      "name": "climate_select",
+      "value": "avg_temp_max",
+      "bind": {
+        "input": "select",
+        "options": ["avg_temp_max", "avg_temp_min"],
+        "labels": [
+          "Average Max Temperature (°C)",
+          "Average Min Temperature (°C)"
+        ],
+        "name": "Select Variable: "
+      }
+    }
+  ],
+
+  "transform": [
+    { "filter": "toNumber(datum.year) >= 2010 && toNumber(datum.year) <= 2021" },
+    { "calculate": "toNumber(datum[climate_select])", "as": "climate_value" },
+    { "calculate": "climate_select", "as": "selected_variable" },
+    {
+      "calculate": "climate_select == 'avg_temp_min' ? 'Average Min Temperature (°C)' : 'Average Max Temperature (°C)'",
+      "as": "variable_label"
+    },
+    { "calculate": "format(datum.climate_value, '.2f') + ' °C'", "as": "climate_value_fmt" }
+  ],
+
+  "mark": { "type": "rect", "stroke": "black", "strokeWidth": 0.9 },
+
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": { "labelAngle": 45, "labelFontSize": 10, "grid": false }
+    },
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "title": "State",
+      "axis": { "labelFontSize": 10, "grid": false }
+    },
+    "color": {
+      "field": "climate_value",
+      "type": "quantitative",
+      "title": "Temperature (°C)",
+      "scale": {
+        "type": "quantize",
+        "domain": [18, 38],
+        "range": ["#FFE66D", "#CBE6A6", "#6BC6B0", "#2BAEAD", "#0A9396", "#0A6FA1", "#01497C"],
+        "clamp": true
+      },
+      "legend": { "format": ".0f" }
+    },
+    "tooltip": [
+      { "field": "variable_label", "title": "Variable" },
+      { "field": "climate_value_fmt", "title": "Value" },
+      { "field": "state", "title": "State" },
+      { "field": "year", "title": "Year" }
+    ]
+  },
+
+  "config": {
+    "background": "#fafafa",
+    "font": "Arial",
+    "view": { "stroke": "transparent" },
+    "axis": { "labelFontSize": 11, "titleFontSize": 13 },
+    "legend": { "labelFontSize": 12, "titleFontSize": 13 }
+  }
+}

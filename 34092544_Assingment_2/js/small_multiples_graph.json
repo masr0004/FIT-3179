@@ -1,0 +1,147 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Food Price Inflation — Monthly Trends by Year (2010–2021, Malaysia)",
+  "padding": { "top": 16, "right": 8, "bottom": 28, "left": 6 },
+  "data": { "url": "data/consumer-price-indices.csv", "format": { "type": "csv" } },
+  "config": {
+    "view": { "stroke": null },
+    "axis": { "grid": true, "labelFontSize": 10, "titleFontSize": 10 }
+  },
+
+  "params": [
+    {
+      "name": "inflation_level",
+      "value": "All Years",
+      "bind": {
+        "input": "select",
+        "name": "Show Years: ",
+        "options": [
+          "All Years",
+          "High Inflation (≥5%)",
+          "Moderate-High (4-5%)",
+          "Moderate (3-4%)",
+          "Low-Moderate (2-3%)",
+          "Low (<2%)"
+        ]
+      }
+    }
+  ],
+
+  "transform": [
+    { "calculate": "trim(lower(datum.Area||''))", "as": "area_key" },
+    { "filter": "datum.area_key == 'malaysia'" },
+    { "calculate": "trim(lower(datum.Item||''))", "as": "item_key" },
+    { "filter": "datum.item_key == 'food price inflation'" },
+    { "calculate": "toNumber(datum.Value)", "as": "value_num" },
+    { "calculate": "toNumber(datum.Year)", "as": "year_num" },
+    { "calculate": "lower(trim(datum.Months||''))", "as": "m_lc" },
+    {
+      "calculate": "indexof(['january','february','march','april','may','june','july','august','september','october','november','december'], datum.m_lc)+1",
+      "as": "mnum"
+    },
+    { "filter": "datum.mnum>=1 && datum.mnum<=12" },
+    {
+      "calculate": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][datum.mnum-1]",
+      "as": "month_label"
+    },
+    {
+      "joinaggregate": [
+        { "op": "max", "field": "value_num", "as": "year_max_inflation" }
+      ],
+      "groupby": ["year_num"]
+    },
+    {
+      "calculate": "datum.year_max_inflation >= 5 ? 'High Inflation (≥5%)' : (datum.year_max_inflation >= 4 ? 'Moderate-High (4-5%)' : (datum.year_max_inflation >= 3 ? 'Moderate (3-4%)' : (datum.year_max_inflation >= 2 ? 'Low-Moderate (2-3%)' : 'Low (<2%)')))",
+      "as": "inflation_category"
+    },
+    {
+      "filter": "inflation_level == 'All Years' || datum.inflation_category == inflation_level"
+    }
+  ],
+
+  "facet": { "field": "year_num", "type": "ordinal", "sort": "ascending", "title": null },
+  "columns": 4,
+  "resolve": { "scale": { "x": "independent", "y": "independent" } },
+
+  "spec": {
+    "width": 300,
+    "height": 200,
+    "layer": [
+      {
+        "mark": { "type": "area", "opacity": 0.25, "clip": true, "line": false },
+        "encoding": {
+          "x": {
+            "field": "mnum", "type": "ordinal",
+            "scale": { "domain": [1,2,3,4,5,6,7,8,9,10,11,12] },
+            "title": "Month",
+            "axis": {
+              "values": [1,2,3,4,5,6,7,8,9,10,11,12],
+              "labelExpr": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][datum.value-1]",
+              "labelAngle": 0, "tickSize": 4, "labelFontSize": 9
+            }
+          },
+          "y": {
+            "field": "value_num", "type": "quantitative",
+            "title": "Food Inflation (%)",
+            "scale": { "domain": [0, 8] },
+            "axis": { "values": [0, 2, 4, 6, 8] }
+          },
+          "color": { "field": "year_num", "type": "nominal", "legend": null, "scale": { "scheme": "category20" } }
+        }
+      },
+      {
+        "mark": { "type": "line", "strokeWidth": 2.3, "clip": true, "point": { "filled": true, "size": 80 }, "interpolate": "monotone" },
+        "encoding": {
+          "x": { "field": "mnum", "type": "ordinal", "scale": { "domain": [1,2,3,4,5,6,7,8,9,10,11,12] } },
+          "y": { "field": "value_num", "type": "quantitative" },
+          "order": { "field": "mnum", "type": "quantitative" },
+          "color": { "field": "year_num", "type": "nominal", "legend": null, "scale": { "scheme": "category20" } }
+        }
+      },
+
+      {
+        "transform": [
+          { "filter": "indexof([2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021], datum.year_num) >= 0" }
+        ],
+        "mark": {
+          "type": "text",
+          "align": "center",
+          "baseline": "bottom",
+          "dy": -6,
+          "fontSize": 11,
+          "fontWeight": "bold",
+          "strokeWidth": 0,
+          "clip": true
+        },
+        "encoding": {
+          "x": { "field": "mnum", "type": "ordinal", "scale": { "domain": [1,2,3,4,5,6,7,8,9,10,11,12] } },
+          "y": { "field": "value_num", "type": "quantitative" },
+          "text": { "field": "value_num", "type": "quantitative", "format": ".1f" },
+          "color": { "value": "black" }
+        }
+      },
+
+      {
+        "transform": [
+          { "aggregate": [
+              { "op": "argmax", "field": "value_num", "as": "row_max" },
+              { "op": "argmin", "field": "value_num", "as": "row_min" }
+            ]
+          },
+          { "calculate": "'Highest inflation rate: ' + datum.row_max.month_label + ' (' + format(datum.row_max.value_num, '.1f') + '%)'", "as": "line1" },
+          { "calculate": "'Lowest inflation rate: ' + datum.row_min.month_label + ' (' + format(datum.row_min.value_num, '.1f') + '%)'", "as": "line2" }
+        ],
+        "layer": [
+          {
+            "mark": { "type": "text", "align": "left", "fontSize": 12, "fontWeight": "bold", "opacity": 0.9, "dx": 8, "dy": 14 },
+            "encoding": { "x": { "value": 0 }, "y": { "value": 0 }, "text": { "field": "line1" }, "color": { "value": "black" } }
+          },
+          {
+            "mark": { "type": "text", "align": "left", "fontSize": 12, "opacity": 0.9, "dx": 8, "dy": 30 },
+            "encoding": { "x": { "value": 0 }, "y": { "value": 0 }, "text": { "field": "line2" }, "color": { "value": "black" } }
+          }
+        ]
+      }
+    ]
+  }
+}

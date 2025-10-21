@@ -1,0 +1,117 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Fertilizer Consumption vs Agricultural GDP — Indexed Trends (0–1, 2010–2021)",
+  "width": 700,
+  "height": 420,
+
+  "data": { "url": "data/Fertilizer_Consumption.csv", "format": {"type": "csv"} },
+
+  "params": [
+    {
+      "name": "CountryPick",
+      "value": "Malaysia",
+      "bind": { "input": "select", "name": "Country: ", "options": ["Malaysia"] }
+    }
+  ],
+
+  "transform": [
+    {"filter": "datum.Country_Name == CountryPick"},
+    {"calculate": "toNumber(datum.Year)", "as": "Year_num"},
+    {"filter": "datum.Year_num <= 2021"},
+    {"calculate": "trim(datum.Indicator_Name)", "as": "Indicator"},
+    {"calculate": "toNumber(datum.Value)", "as": "Val"},
+    { "filter": "datum.Indicator == 'Fertilizer_consumption' || datum.Indicator == 'Agriculture_GDP%'" },
+    {
+      "calculate": "datum.Indicator == 'Fertilizer_consumption' ? 'Fertilizer (kg/ha)' : 'Agriculture GDP (%)'",
+      "as": "Series"
+    },
+    {
+      "window": [
+        {"op": "min", "field": "Val", "as": "vmin"},
+        {"op": "max", "field": "Val", "as": "vmax"}
+      ],
+      "frame": [null, null],
+      "groupby": ["Series"]
+    },
+    {"calculate": "(datum.Val - datum.vmin) / (datum.vmax - datum.vmin)", "as": "Index01"},
+    {
+      "calculate": "datum.Series == 'Agriculture GDP (%)' ? format(datum.Val, '.2f') + ' %' : format(datum.Val, '.2f') + ' kg/ha'",
+      "as": "Val_unit"
+    }
+  ],
+
+  "layer": [
+    {
+      "mark": {"type": "line", "point": true},
+      "encoding": {
+        "x": {
+          "field": "Year_num",
+          "type": "quantitative",
+          "title": "Year",
+          "scale": {"domain": [2010, 2021]},
+          "axis": {
+            "tickCount": 12, "format": "d",
+            "values": [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021]
+          }
+        },
+        "y": {
+          "field": "Index01",
+          "type": "quantitative",
+          "title": "Relative Level (0–1, min–max per series)"
+        },
+        "color": {
+          "field": "Series",
+          "type": "nominal",
+          "title": null,
+          "scale": {"scheme": "tableau10"}
+        },
+        "tooltip": [
+          {"field": "Country_Name", "title": "Country"},
+          {"field": "Year_num", "title": "Year:", "format": "d"},
+          {"field": "Series", "title": "Series:"},
+          {"field": "Val_unit", "title": "Value:"}
+        ]
+      }
+    },
+    { "mark": {"type": "rule", "strokeDash": [4, 4], "opacity": 0.35}, "encoding": {"y": {"datum": 0.5}} },
+    { "mark": {"type": "rule", "strokeDash": [6, 3], "color": "red", "strokeWidth": 2}, "encoding": {"x": {"datum": 2020}} },
+    {
+      "mark": {"type": "text","align": "left","dx": -110,"dy": -320,"fontSize": 11,"fontWeight": "bold","color": "red"},
+      "encoding": {"x": {"datum": 2020},"y": {"datum": 0.1},"text": {"value": "COVID-19 Impact"}}
+    },
+    {
+      "mark": {"type": "text","align": "left","dx": -210,"dy": -300,"fontSize": 12,"color": "#060505"},
+      "encoding": {
+        "x": {"datum": 2020},"y": {"datum": 0.1},
+        "text": {"value": "Rapid recovery in fertilizer use and GDP after 2020"}
+      }
+    },
+    {
+      "mark": {"type": "text","align": "center","dx": 65,"dy": 12,"fontSize": 12,"color": "#0c0f10"},
+      "encoding": {
+        "x": {"datum": 2011},"y": {"datum": 1.08},
+        "text": {"value": "Both GDP% and Fertilizer Consumption is high"}
+      }
+    },
+    {
+      "mark": {"type": "text","align": "center","dx": 100,"dy": 190,"fontSize": 12,"color": "#070402"},
+      "encoding": {
+        "x": {"datum": 2014},"y": {"datum": 1.08},
+        "text": {"value": "Fertilizer consumption is high, while GDP% is falling"}
+      }
+    },
+    {
+      "mark": {"type": "text","align": "center","dx": 0,"dy": -10,"fontSize": 12,"color": "#0b0b0b"},
+      "encoding": {
+        "x": {"datum": 2018},"y": {"datum": -0.08},
+        "text": {"value": "Both GDP% and Ferliliser consumption is low"}
+      }
+    }
+  ],
+
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"grid": true},
+    "legend": {"orient": "top", "labelFontSize": 12, "titleFontSize": 13}
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 1070,
+  "height": 500,
+  "projection": { "type": "mercator" },
+  "config": { "view": { "stroke": "transparent" } },
+
+  "params": [
+    {
+      "name": "year_selection",
+      "value": 2010,
+      "bind": {
+        "input": "range",
+        "min": 2010,
+        "max": 2021,
+        "step": 1,
+        "name": "Select Year: "
+      }
+    }
+  ],
+
+  "layer": [
+    {
+      "data": {
+        "url": "js/malaysia_states.json",
+        "format": { "type": "topojson", "feature": "MYSADM0gbOpen" }
+      },
+      "mark": { "type": "geoshape", "fill": null, "stroke": "lightgrey", "strokeWidth": 0.5 }
+    },
+    {
+      "data": {
+        "url": "js/malaysia_states.json",
+        "format": { "type": "topojson", "feature": "MYSADM1gbOpen" }
+      },
+      "mark": { "type": "geoshape", "fill": "lightgrey", "stroke": "black", "strokeWidth": 0.8 }
+    },
+    {
+      "data": {
+        "url": "js//malaysia_states.json",
+        "format": { "type": "topojson", "feature": "ne_110m_graticules_1" }
+      },
+      "mark": { "type": "geoshape", "fill": null, "stroke": "lightgrey", "strokeWidth": 0.5 }
+    },
+    {
+      "data": { "url": "data/Mean_temperature_rainfall.csv" },
+      "transform": [
+        { "filter": "toNumber(datum.year) == year_selection" },
+        {
+          "lookup": "state",
+          "from": {
+            "data": {
+              "url": "js/malaysia_states.json",
+              "format": { "type": "topojson", "feature": "MYSADM1gbOpen" }
+            },
+            "key": "properties.shapeName"
+          },
+          "as": "geo"
+        },
+        { "calculate": "toNumber(datum.avg_rain_days)", "as": "rain_days_value" },
+        { "calculate": "format(datum.rain_days_value, '.2f') + ' days'", "as": "rain_days_fmt" }
+      ],
+      "mark": { "type": "geoshape", "stroke": "black", "strokeWidth": 0.8 },
+      "encoding": {
+        "shape": { "field": "geo", "type": "geojson" },
+        "color": {
+          "field": "rain_days_value",
+          "type": "quantitative",
+          "title": "Average Rain Days",
+          "scale": { "scheme": "blues" },
+          "legend": { "orient": "right", "title": "Avg Rain Days" }
+        },
+        "tooltip": [
+          { "field": "state", "title": "State:" },
+          { "field": "year", "title": "Year:" },
+          { "field": "rain_days_fmt", "title": "Average Rain Days:" }
+        ]
+      }
+    },
+    {
+      "data": { "url": "data/Malaysia_Coord_common.csv" },
+      "transform": [
+        {
+          "aggregate": [
+            { "op": "mean", "field": "Lon", "as": "lon" },
+            { "op": "mean", "field": "Lat", "as": "lat" }
+          ],
+          "groupby": ["States"]
+        }
+      ],
+      "mark": { "type": "text", "fontSize": 12, "fontWeight": "bold", "opacity": 1.0 },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude": { "field": "lat", "type": "quantitative" },
+        "text": { "field": "States" }
+      }
+    },
+
+    {
+      "data": { "url": "data/Mean_temperature_rainfall.csv" },
+      "transform": [
+        { "filter": "toNumber(datum.year) == year_selection" },
+        { "calculate": "toNumber(datum.avg_rain_days)", "as": "rain_days_value" },
+        {
+          "aggregate": [
+            { "op": "argmax", "field": "rain_days_value", "as": "row_max" },
+            { "op": "argmin", "field": "rain_days_value", "as": "row_min" }
+          ]
+        },
+        { "calculate": "'For the Total Rainy Days in ' + toString(year_selection) + ':'", "as": "line1" },
+        {
+          "calculate":
+            "'Highest Number of Rainy Days: State ' + datum.row_max.state + ' (' + format(datum.row_max.rain_days_value, '.2f') + ' days)'",
+          "as": "line2"
+        },
+        {
+          "calculate":
+            "'Lowest Number of Rainy Days: State: ' + datum.row_min.state + ' (' + format(datum.row_min.rain_days_value, '.2f') + ' days)'",
+          "as": "line3"
+        }
+      ],
+      "layer": [
+        {
+          "mark": { "type": "text", "fontSize": 15, "fontWeight": "bold", "align": "left", "dy": 0 },
+          "encoding": {
+            "x": { "value": 250 },
+            "y": { "value": 200 },
+            "text": { "field": "line1" },
+            "color": { "value": "black" }
+          }
+        },
+        {
+          "mark": { "type": "text", "fontSize": 15, "fontWeight": "bold", "align": "left", "dy": 24 },
+          "encoding": {
+            "x": { "value": 250 },
+            "y": { "value": 200 },
+            "text": { "field": "line2" },
+            "color": { "value": "black" }
+          }
+        },
+        {
+          "mark": { "type": "text", "fontSize": 15, "fontWeight": "bold", "align": "left", "dy": 48 },
+          "encoding": {
+            "x": { "value": 250 },
+            "y": { "value": 200 },
+            "text": { "field": "line3" },
+            "color": { "value": "black" }
+          }
+        }
+      ]
+    }
+  ]
+}

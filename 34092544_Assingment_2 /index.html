@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Climate Trends & Agriculture (2010–2022)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="layout.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  </head>
+
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <p class="hero__kicker">FIT3179 · Data Visualisation 2</p>
+        <h1 class="hero__title">
+          Climate Trends and Agriculture Sector in Malaysia
+        </h1>
+        <p class="hero__sub">
+          Explore rainfall, temperature and fertilizer consumption to understand
+          links with agricultural performance.
+        </p>
+        <div class="hero__meta">
+          <span class="tag">Coverage: 2010–2022</span>
+          <span class="tag">Sources: DOSM, DataGOV.my, Kaggle</span>
+          <span class="tag">Author: Marzana Asraf</span>
+        </div>
+      </header>
+
+      <!-- Main Section Header: Climate -->
+      <div class="block__head">
+        <h2 class="block__title">Climate Trends of Malaysia</h2>
+        <p class="block__desc">
+          Rainy-day patterns and Temperature extremes across Malaysian states
+          (2010–2021)
+        </p>
+      </div>
+
+      <section class="block" id="block-map">
+        <div class="block__head">
+          <h3 class="block__title">Rainy Days Across Malaysian States</h3>
+          <p class="block__desc">
+            Total rainy days by state; use the year slider to explore changes.
+          </p>
+        </div>
+        <div class="card card--map">
+          <div id="vis-map" class="chart" aria-label="Rainy days map"></div>
+        </div>
+      </section>
+
+      <!-- Insights row under the map -->
+      <div class="insight-grid" aria-label="Key insights under map">
+        <article class="insight-card">
+          <h3 class="insight-title">🌧️ East Malaysia (Borneo) — Sarawak</h3>
+          <p>
+            Sarawak averages 200+ rainy days most years; this might suggest East
+            Malaysia experiences persistently high rainfall due to its
+            equatorial rainforest climate, steady sea-moisture inflow, and
+            orographic lift from interior highlands.
+          </p>
+        </article>
+
+        <article class="insight-card">
+          <h3 class="insight-title">
+            🌤️ West Malaysia (Peninsula) — Terengganu & Perlis
+          </h3>
+          <p>
+            These states often record the fewest rainy days on the Peninsula;
+            this might suggest a drier edge due to stronger wet dry seasonality,
+            partial rain shadowing, and being slightly off main monsoon storm
+            tracks.
+          </p>
+        </article>
+
+        <article class="insight-card">
+          <h3 class="insight-title">East–West Rain Contrast</h3>
+          <p>
+            Across years, Borneo stays wetter while many Peninsular states
+            remain mid-to-low; this might suggest a durable gradient due to
+            ocean proximity and mountains in the east versus more seasonal,
+            sheltered conditions in the west.
+          </p>
+        </article>
+      </div>
+
+      <section class="block" id="block-heatmap">
+        <div class="block__head">
+          <h3 class="block__title">Trends in Climate Variables (2010–2021)</h3>
+          <p class="block__desc">
+            Annual variation in temperature across states. Use the selector
+            below the chart to switch variables and compare patterns by
+            year/state.<br />
+            Max Temperature: look for warm bands persisting<br />
+            Min Temperature: look for cool bands persisting
+          </p>
+        </div>
+
+        <div class="grid-split">
+          <!-- LEFT: side box -->
+          <aside class="side-card">
+            <h3 class="side-card__title">Climate Variables</h3>
+            <ul class="mini-list">
+              <li>
+                The heatmap reveals a consistent warming trend across Malaysian
+                states from 2010–2021, with maximum temperatures showing
+                distinct peaks in 2015–2016 and 2019, particularly in Peninsular
+                states like Perak, Selangor, and Kedah (33–34°C), while East
+                Malaysian states remain cooler (31–32°C).
+              </li>
+              <li>
+                Minimum temperatures display a gradual upward shift, with most
+                states moving from 23–24°C to 24–25°C by 2017–2019, though
+                highland states like Pahang maintain cooler minimums around
+                21–22°C.
+              </li>
+            </ul>
+          </aside>
+
+        <!-- RIGHT: heatmap -->
+          <div class="card card--heatmap">
+            <div
+              id="vis-heatmap"
+              class="chart"
+              aria-label="Climate variables heatmap"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Section Header: Agriculture -->
+      <div class="block__head">
+        <h2 class="block__title">Agricultural Sectors of Malaysia</h2>
+        <p class="block__desc">
+          From field output to economic impact: yields, GDP, trade, and
+          employment.
+        </p>
+      </div>
+
+      <section class="block" id="block-fertility-crops">
+        <div class="block__head">
+          <h3 class="block__title">
+            Fertilizer Use vs Agricultural GDP & Crop Yield Across States
+          </h3>
+        </div>
+
+        <!-- Sub-header for Crops -->
+        <div class="block__head">
+          <h4 class="block__title">Crops by Average Yield per State</h4>
+          <p class="block__desc">
+            Comparing highest-yielding crops across Malaysian states. The filter
+            lets you view all states or focus on the <strong>highest</strong>,
+            <strong>lowest</strong>, or <strong>median</strong> crop per state.
+            In the <strong>All</strong> view, grey bars represent lower-yielding
+            crops.
+          </p>
+        </div>
+
+        <div class="card card--bars card--split full-span">
+          <!-- LEFT: chart pane (inside same card) -->
+          <div class="card__pane chart-pane">
+            <div
+              id="vis-bar"
+              class="chart"
+              aria-label="Crops stacked bar"
+            ></div>
+          </div>
+
+          <!-- vertical divider inside the card -->
+          <div class="card__divider" aria-hidden="true"></div>
+
+          <aside
+            class="card__pane note-pane"
+            aria-label="Notes for stacked bar"
+          >
+            <h3 class="note-title">Crops Yield Per State</h3>
+            <p class="note-text">
+              Vegetables and cash crops dominate as the highest-yielding
+              categories across Malaysian states, with vegetables leading in
+              Kelantan (28.9 t/ha) and cash crops performing strongly in Perak
+              (17.1 t/ha) and Selangor (14.3 t/ha). Overall, Paddy consistently
+              shows the lowest yields across states, while the median yields
+              reveal a more balanced distribution with crops like spices,
+              industrial crops, and coconut representing mid-range performance.
+            </p>
+          </aside>
+        </div>
+
+        <!-- Sub-header for Fertilizer -->
+        <div class="block__head">
+          <h4 class="block__title">Fertilizer Use vs Agricultural GDP</h4>
+          <p class="block__desc">
+            Indexed trends (0-1 scale) comparing fertilizer use and agricultural
+            GDP, showing diverging patterns (2010-2021)
+          </p>
+        </div>
+
+        <div class="card card--split full-span flip">
+          <!-- LEFT: note box -->
+          <aside
+            class="card__pane note-pane"
+            aria-label="Notes for fertilizer vs GDP"
+          >
+            <h3 class="note-title">
+              Fertilizer Consumption vs Agriculture GDP%
+            </h3>
+            <p class="note-text">
+              From 2012 onwards, Malaysia's fertilizer consumption remained high
+              while agricultural GDP contribution declined consistently,
+              suggesting increased fertilizer use alone does not guarantee GDP
+              growth. Other factors like market demand, land constraints, or
+              diversification matter more for economic contribution. The 2020
+              COVID-19 shock affected both metrics, but fertilizer use recovered
+              faster than GDP, implying supply chain disruptions impacted the
+              sector more severely.
+            </p>
+          </aside>
+
+          <div class="card__divider" aria-hidden="true"></div>
+
+          <!-- RIGHT: chart -->
+          <div class="card__pane chart-pane">
+            <h3 class="card__title">Fertilizer Use vs Agricultural GDP</h3>
+            <div
+              id="vis-gdp"
+              class="chart"
+              aria-label="Fertilizer vs GDP line"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="block-lines">
+        <div class="block__head">
+          <h3 class="block__title">
+            Crop and Food Production vs Agriculture GDP
+          </h3>
+          <p class="block__desc">
+            Comparing production output trends with GDP contribution patterns
+            across Malaysian agriculture (2010-2021)
+          </p>
+        </div>
+
+        <div class="grid-lines-two-charts">
+          <div class="card area-a">
+            <h3 class="card__title">Crop Production vs Agriculture GDP</h3>
+            <div
+              id="vis-line"
+              class="chart"
+              aria-label="Crop production vs GDP"
+            ></div>
+          </div>
+
+          <div class="card area-b">
+            <h3 class="card__title">Food Production vs Agriculture GDP</h3>
+            <div
+              id="vis-line2"
+              class="chart"
+              aria-label="Food production vs GDP"
+            ></div>
+          </div>
+        </div>
+
+        <aside class="note-box note-wide" aria-label="Production GDP notes">
+          <h4>Agricultural Production and GDP Trends: Malaysia (2010-2021)</h4>
+          <p>
+            Agricultural production showed varied patterns with crop production
+            peaking in 2015 and 2017 (lows in 2010 and 2016) and food production
+            highest in 2016 and 2020 (lows in 2010 and 2011), yet the sector's
+            GDP contribution declined consistently throughout 2010-2019, with a
+            notable recovery in 2021 where both production indices and GDP
+            showed upward trends. Production remained stable despite economic
+            pressures, suggesting the 2020 COVID-19 period may have intensified
+            existing challenges affecting agriculture's economic value rather
+            than its output capacity.
+          </p>
+        </aside>
+      </section>
+
+      <section class="block" id="block-inflation">
+        <div class="block__head">
+          <h3 class="block__title">Food Inflation Across the Years</h3>
+          <p class="block__desc">
+            Monthly food price inflation trends across years (2010-2021). Note:
+            Tooltips were omitted as all inflation values are explicitly labeled
+            on the chart, making hover interactions redundant for this
+            visualization format.
+          </p>
+        </div>
+
+        <div class="card">
+          <div
+            id="vis-area"
+            class="chart"
+            aria-label="Food inflation area chart"
+          ></div>
+        </div>
+
+        <!-- wide note just below the chart -->
+        <aside class="note-box note-wide" aria-label="Food inflation notes">
+          <h4>
+            Food Price Inflation — Monthly Trends by Year (2010-2021, Malaysia)
+          </h4>
+          <p>
+            Food inflation in Malaysia showed considerable volatility across the
+            decade, with peak rates occurring in 2011 (October at 5.7%), 2016
+            (March at 5.0%), and 2019 (August at 2.6%), while experiencing
+            dramatic lows during 2018 (reaching near-zero in mid-year) and 2020
+            (dropping to 0.8% in February). The 2010-2013 period displayed
+            consistently higher inflation rates (2-5%), while post-2017 years
+            exhibited more moderate and stable patterns (mostly 1-4%),
+            suggesting Malaysia's food prices became more controlled in recent
+            years despite occasional spikes, with the COVID-19 period (2020)
+            showing surprisingly low inflation before gradually recovering in
+            2021.
+          </p>
+        </aside>
+      </section>
+
+      <section class="block" id="block-trade-employment">
+        <div class="block__head">
+          <h3 class="block__title">Trade & Employment</h3>
+        </div>
+
+        <!-- Sub-header for Trade -->
+        <div class="block__head">
+          <h4 class="block__title">Import and Export Across The Years</h4>
+          <p class="block__desc">
+            Tracking import and export trends in Malaysia's agricultural sector (2010-2021). 
+            The year group filter allows switching between odd and even years for clearer temporal patterns, 
+            helping to reduce visual clutter and making it easier to identify long-term trends in the country's 
+            agricultural trade dynamics over the decade. </p>
+        </div>
+
+        <div class="card card--split s-area-top">
+          <!-- LEFT: chart -->
+          <div class="card__pane chart-pane">
+            <h3 class="card__title">Imports vs Exports</h3>
+            <div
+              id="vis-lollipop"
+              class="chart"
+              aria-label="Imports vs Exports"
+            ></div>
+          </div>
+
+          <!-- divider -->
+          <div class="card__divider" aria-hidden="true"></div>
+
+          <!-- RIGHT: note box -->
+          <aside
+            class="card__pane note-pane"
+            aria-label="Notes for imports vs exports"
+          >
+            <h3 class="note-title">
+              Malaysia's Agricultural Trade Transition (2010-2021)
+            </h3>
+            <p class="note-text">
+              Malaysia's agricultural exports declined steadily from 3.17% to
+              1.43% over the decade, while imports remained relatively stable
+              around 2.0-2.5%. By 2021, imports (2.50%) surpassed exports
+              (1.43%) for the first time, indicating Malaysia shifted from a net
+              agricultural exporter to a net importer. This pattern might
+              suggest that Malaysia's agricultural sector is becoming
+              increasingly reliant on foreign food sources rather than domestic
+              production for export.
+            </p>
+          </aside>
+        </div>
+
+        <!-- Sub-header for Employment -->
+        <div class="block__head">
+          <h4 class="block__title">Employment Across The Years</h4>
+          <p class="block__desc">
+            Agricultural employment by gender - declining workforce with
+            persistent gender gap (2010-2021). Filter options allow viewing
+            male, female, or total employment separately to track individual
+            gender trends more clearly. This filtering capability is essential
+            for examining gender-specific patterns without the distraction of
+            overlapping data series
+          </p>
+        </div>
+
+        <div class="card card--split flip s-area-bottom">
+          <!-- LEFT: note -->
+          <aside
+            class="card__pane note-pane"
+            aria-label="Notes for employment chart"
+          >
+            <h3 class="note-title">
+              Agricultural Employment by Gender: Malaysia (2010-2021)
+            </h3>
+            <p class="note-text">
+              Agricultural employment in Malaysia declined from 16% in 2010 to
+              12.8% in 2021, with males consistently maintaining nearly double
+              the participation rate of females throughout the period. This
+              pattern might suggest that Malaysia's agricultural sector is
+              losing workforce participation across the board, with men
+              continuing to dominate agricultural labor despite overall sector
+              decline, potentially reflecting traditional gender roles or the
+              physically demanding nature of agricultural work.
+            </p>
+          </aside>
+
+          <!-- divider -->
+          <div class="card__divider" aria-hidden="true"></div>
+
+          <!-- RIGHT: chart -->
+          <div class="card__pane chart-pane">
+            <h3 class="card__title">Employment in Agriculture by Gender</h3>
+            <div
+              id="vis-grouped"
+              class="chart"
+              aria-label="Employment by gender"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+  <!-- ===== Metadata box ===== -->
+      <section class="block" id="block-metadata">
+        <div class="block__head">
+          <h3 class="block__title">Metadata</h3>
+          <p class="block__desc"></p>
+        
+        <div class="block__body">
+          <h4 style="margin-bottom: 12px; font-size: 16px; font-weight: 600;">Datasets Used:</h4>
+          <ul style="list-style: none; padding-left: 0; margin-bottom: 20px;">
+            <li style="margin-bottom: 8px;">
+              <a href="https://open.dosm.gov.my/data-catalogue/agricrop_area" target="_blank" style="color: #3b82f6; text-decoration: none;">
+                Crop Area and Production by State | OpenDOSM
+              </a>
+            </li>
+            <li style="margin-bottom: 8px;">
+              <a href="https://www.kaggle.com/datasets/mypapit/malaysiancity" target="_blank" style="color: #3b82f6; text-decoration: none;">
+                Kaggle — Malaysian City Dataset
+              </a>
+            </li>
+            <li style="margin-bottom: 8px;">
+              <a href="https://data.humdata.org/dataset/world-bank-agriculture-and-rural-development-indicators-for-malaysia" target="_blank" style="color: #3b82f6; text-decoration: none;">
+                World Bank Agriculture and Rural Development Indicators for Malaysia
+              </a>
+            </li>
+            <li style="margin-bottom: 8px;">
+              <a href="https://data.humdata.org/dataset/faostat-food-prices-for-malaysia" target="_blank" style="color: #3b82f6; text-decoration: none;">
+                FAOSTAT Food Prices for Malaysia
+              </a>
+            </li>
+            <li style="margin-bottom: 8px;">
+              <a href="https://archive.data.gov.my/data/dataset/mean-temperature-rainfall-and-mean-relative-humidity-malaysia" target="_blank" style="color: #3b82f6; text-decoration: none;">
+                Mean Temperature, Rainfall and Relative Humidity (Malaysia)
+              </a>
+            </li>
+          </ul>
+          
+          <h4 style="margin-bottom: 8px; font-size: 16px; font-weight: 600;">Visualisation Author:</h4>
+          <p style="margin-bottom: 16px;">Marzana Binte Asraf</p>
+          
+          <h4 style="margin-bottom: 8px; font-size: 16px; font-weight: 600;">Date Created:</h4>
+          <p>20 Oct 2025</p>
+        </div>
+      </section>
+    <script>
+      function embed(sel, specPath) {
+        vegaEmbed(sel, specPath, { actions: false }).catch((err) => {
+          const el = document.querySelector(sel);
+          el.style.whiteSpace = "pre-wrap";
+          el.style.color = "red";
+          el.textContent = "Embed failed:\n" + (err?.message || String(err));
+        });
+      }
+
+      embed("#vis-map", "js/map.json");
+      embed("#vis-heatmap", "js/heatmap.json");
+      embed("#vis-gdp", "js/line_chart.json");
+      embed("#vis-bar", "js/stack_bar_chart.json");
+      embed("#vis-line", "js/Dual_Axis_Bar_Line_Chart.json");
+      embed("#vis-line2", "js/Dual_Axis_Bar_Line_Chart_2.json");
+      embed("#vis-area", "js/small_multiples_graph.json");
+      embed("#vis-lollipop", "js/lollipop_chart.json");
+      embed("#vis-grouped", "js/grouped_bar_chart.json");
+    </script>
+  </body>
+</html>
