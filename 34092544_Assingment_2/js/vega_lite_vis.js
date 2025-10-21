@@ -9,13 +9,13 @@ function embed(sel, specPath) {
 }
 
 
-embed('#vis-waffle', 'js/waffle_chart.json');      
-embed('#vis-lollipop', 'js/lollipop_chart.json');  
-embed('#vis-line', 'js/line_chart.json');          
-embed('#vis-line2',      'js/line_chart_2.json');
-embed('#vis-area', 'js/area_chart.json');          
-embed('#vis-grouped', 'js/grouped_bar_chart.json'); 
-embed('#vis-map', 'js/map.json');
-embed('#vis-smallmultiples', 'js/small_multiples_graph.json');  
-embed('#vis-heatmap',    'js/heatmap.json');
-embed('#vis-cpi',       'js/chart.json');
+embed('#vis-waffle', 'https://raw.githubusercontent.com/masr0004/FIT-3179/refs/heads/main/34092544_Assingment_2/js/waffle_chart.json');      
+embed('#vis-lollipop', 'https://raw.githubusercontent.com/masr0004/FIT-3179/refs/heads/main/34092544_Assingment_2/js/lollipop_chart.json');  
+embed('#vis-line', 'https://raw.githubusercontent.com/masr0004/FIT-3179/refs/heads/main/34092544_Assingment_2/js/line_chart.json');          
+embed('#vis-line2', 'https://raw.githubusercontent.com/masr0004/FIT-3179/refs/heads/main/34092544_Assingment_2/js/line_chart_2.json');
+embed('#vis-area', 'https://raw.githubusercontent.com/masr0004/FIT-3179/refs/heads/main/34092544_Assingment_2/js/area_chart.json');          
+embed('#vis-grouped', 'https://raw.githubusercontent.com/masr0004/FIT-3179/refs/heads/main/34092544_Assingment_2/js/grouped_bar_chart.json'); 
+embed('#vis-map', 'https://raw.githubusercontent.com/masr0004/FIT-3179/refs/heads/main/34092544_Assingment_2/js/map.json');
+embed('#vis-smallmultiples', 'https://raw.githubusercontent.com/masr0004/FIT-3179/refs/heads/main/34092544_Assingment_2/js/small_multiples_graph.json');  
+embed('#vis-heatmap', 'https://raw.githubusercontent.com/masr0004/FIT-3179/refs/heads/main/34092544_Assingment_2/js/heatmap.json');
+embed('#vis-cpi', 'https://raw.githubusercontent.com/masr0004/FIT-3179/refs/heads/main/34092544_Assingment_2/js/chart.json');
